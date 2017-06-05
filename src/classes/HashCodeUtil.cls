@@ -18,7 +18,7 @@
  * Utility to calculate complex hashcodes on custom objects.
  * Based on the recommendations from Effective Java by Joshua Bloch
  *
- * All hashes are calculated using hash * 37 + (hash of the object given)
+ * All hashes are calculated using hash * 31 + (hash of the object given)
  * <table>
  *  <caption>Modification Log</caption>
  *  <tr>
@@ -37,11 +37,16 @@
  */
 global class HashCodeUtil {
 
-    /** prime number used in the calculation. will provide better distribution */
-    global static final Integer PRIME = 37;
+    /**
+     * Prime number used in the calculation. will provide better distribution.
+     * 31 is chosen because it is an odd prime that will not overflow on multiplication
+     * and it is easily calculated by shifting, making it easy for the compiler to optimize
+     * the multiplication.
+     */
+    global static final Integer PRIME = 31;
 
-    /** starting value of the hash should always be non-zero; */
-    private Integer hash = 1;
+    /** starting value of the hash should always be non-zero. 17 is chosen arbitralily. */
+    private Integer hash = 17;
 
     /** Empty constructor */
     global HashCodeUtil() {

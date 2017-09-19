@@ -34,7 +34,7 @@
  */
 global class ListGraph extends AbstractGraph {
 
-    private List<List<Edge>> edges;
+    private final List<List<Edge>> edges;
 
     /**
      * Constructs a graph with the given number of vertices and direction
@@ -42,10 +42,10 @@ global class ListGraph extends AbstractGraph {
      * @param numV the number of vertices
      * @param directed the direction of the graph
      */
-    global ListGraph(Integer numV, Boolean directed) {
+    global ListGraph(final Integer numV, final Boolean directed) {
         super(numV, directed);
         edges = new List<List<Edge>>();
-        for(Integer i = 0; i < numV; i++) {
+        for (Integer i = 0; i < numV; i++) {
             edges.add(new List<Edge>());
         }
     }
@@ -58,7 +58,7 @@ global class ListGraph extends AbstractGraph {
      * @return true if getEdge returns not null
      * @see getEdge
      */
-    global Boolean isEdge(Integer source, Integer dest) {
+    global Boolean isEdge(final Integer source, final Integer dest) {
         return getEdge(source, dest) != null;
     }
 
@@ -69,9 +69,9 @@ global class ListGraph extends AbstractGraph {
      * @param e the edge you want to insert
      * @see Edge
      */
-    global void ins(Edge e) {
+    global void ins(final Edge e) {
         edges[e.getSource()].add(e);
-        if(!isDirected()) {
+        if (!isDirected()) {
             edges[e.getDest()].add(new Edge(e.getDest(), e.getSource(), e.getWeight()));
         }
     }
@@ -82,7 +82,7 @@ global class ListGraph extends AbstractGraph {
      * @param source the source vertex
      * @return an iterator with all edges that start at source
      */
-    global Iterator<Edge> edgeIterator(Integer source) {
+    global Iterator<Edge> edgeIterator(final Integer source) {
         return edges[source].iterator();
     }
 
@@ -94,11 +94,11 @@ global class ListGraph extends AbstractGraph {
      * @param dest the destination vertex
      * @return the edge that begins at source and ends at dest. Null if there is none.
      */
-    global Edge getEdge(Integer source, Integer dest) {
-        Edge t = new Edge(source, dest);
-        Edge[] src = edges[source];
-        for(Edge e : src) {
-            if(e.equals(t)) {
+    global Edge getEdge(final Integer source, final Integer dest) {
+        final Edge t = new Edge(source, dest);
+        final Edge[] src = edges[source];
+        for (Edge e : src) {
+            if (e.equals(t)) {
                 return e;
             }
         }

@@ -39,7 +39,7 @@ global interface Stack extends Collection {
      *
      * @return true if the operation was succesful
      */
-    Boolean push(Object o);
+    Boolean push(final Object o);
 
     /**
      * Returns and removes the top item off of the stack.

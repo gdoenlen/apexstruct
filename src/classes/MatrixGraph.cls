@@ -37,7 +37,7 @@
 global class MatrixGraph extends AbstractGraph {
 
     /** Double[][] */
-    private List<List<Double>> edges;
+    private final List<List<Double>> edges;
 
     /**
      * Constructs a matrix graph with the given number of vertices and direction
@@ -45,11 +45,11 @@ global class MatrixGraph extends AbstractGraph {
      * @param numV the number of vertices
      * @directed the direction
      */
-    global MatrixGraph(Integer numV, Boolean directed) {
+    global MatrixGraph(final Integer numV, final Boolean directed) {
         super(numV, directed);
         edges = new List<List<Double>>();
-        for(Integer i = 0; i < numV; i++) {
-            Double[] arr = new Double[numV];
+        for (Integer i = 0; i < numV; i++) {
+            final Double[] arr = new Double[numV];
             edges.add(arr);
         }
     }
@@ -61,10 +61,14 @@ global class MatrixGraph extends AbstractGraph {
      * @param dest the destination vertex
      * @return the edge at the given location or null if there isnt one
      */
-    global Edge getEdge(Integer source, Integer dest) {
-        if(source < 0 || dest < 0) { return null; }
-        if(source > numV - 1 || dest > numV - 1) { return null; }
-        if(edges[source][dest] != null) {
+    global Edge getEdge(final Integer source, final Integer dest) {
+        if (source < 0 || dest < 0) {
+            return null;
+        }
+        if (source > numV - 1 || dest > numV - 1) {
+            return null;
+        }
+        if (edges[source][dest] != null) {
             return new Edge(source, dest, edges[source][dest]);
         }
         return null;
@@ -76,7 +80,7 @@ global class MatrixGraph extends AbstractGraph {
      * @param source the source vertex
      * @param dest the destination vertex
      */
-    global Boolean isEdge(Integer source, Integer dest) {
+    global Boolean isEdge(final Integer source, final Integer dest) {
         return getEdge(source, dest) != null;
     }
 
@@ -86,9 +90,9 @@ global class MatrixGraph extends AbstractGraph {
      * @param e The edge you want to insert
      * @see Edge
      */
-    global void ins(Edge e) {
+    global void ins(final Edge e) {
         edges[e.getSource()][e.getDest()] = e.getWeight();
-        if(!isDirected()) {
+        if (!isDirected()) {
             edges[e.getDest()][e.getSource()] = e.getWeight();
         }
     }
@@ -99,9 +103,9 @@ global class MatrixGraph extends AbstractGraph {
      * @param source the source vertex
      * @return an iterator containing all edges at the source vertex
      */
-    global Iterator<Edge> edgeIterator(Integer source) {
-        List<Edge> lst = new List<Edge>();
-        for(Integer i = 0; i < edges[source].size(); i++) {
+    global Iterator<Edge> edgeIterator(final Integer source) {
+        final List<Edge> lst = new List<Edge>();
+        for (Integer i = 0; i < edges[source].size(); i++) {
             lst.add(new Edge(source, i, edges[source][i]));
         }
         return lst.iterator();

@@ -33,5 +33,5 @@
  * </table>
  */
 global interface Comparator {
-    Integer compare(Object a, Object b);
+    Integer compare(final Object a, final Object b);
 }

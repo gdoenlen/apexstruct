@@ -50,18 +50,18 @@ global class AVLTree extends BinarySearchTreeWithRotate {
     /** Indicates the height of the tree has decreased */
     private Boolean decrease;
 
-    global AVLTree(Comparator comp, Type t) {
+    global AVLTree(final Comparator comp, final Type t) {
         super(comp, t);
     }
 
-    private AVLTree(Comparator comp, AVLTree.AVLNode root, Type t) {
+    private AVLTree(final Comparator comp, final AVLTree.AVLNode root, final Type t) {
         super(comp, root, t);
     }
 
-    global override Boolean add(Object o) {
+    global override Boolean add(final Object o) {
         super.add(o);
         increase = false;
-        root = add((AVLTree.AVLNode)root, o);
+        root = add((AVLTree.AVLNode) root, o);
         return addReturn;
     }
 
@@ -72,34 +72,34 @@ global class AVLTree extends BinarySearchTreeWithRotate {
      * @param localRoot the localRoot of the tree being added to
      * @param o the object being added to the tree
      */
-    private AVLTree.AVLNode add(AVLTree.AVLNode localRoot, Object o) {
-        if(localRoot == null) {
+    private AVLTree.AVLNode add(final AVLTree.AVLNode localRoot, final Object o) {
+        if (localRoot == null) {
             addReturn = true;
             increase = true;
             return new AVLTree.AVLNode(o);
         }
 
-        Integer result = comp.compare(o, localRoot.data);
-        if(result == 0) {
+        final Integer result = comp.compare(o, localRoot.data);
+        if (result == 0) {
             //the object is already in the tree
             increase = false;
             addReturn = false;
             return localRoot;
-        } else if(result < 0) {
-            localRoot.left = add((AVLTree.AVLNode)localRoot.left, o);
-            if(increase) {
+        } else if (result < 0) {
+            localRoot.left = add((AVLTree.AVLNode) localRoot.left, o);
+            if (increase) {
                 decrementBalance(localRoot);
-                if(localRoot.balance < LEFT_HEAVY) {
+                if (localRoot.balance < LEFT_HEAVY) {
                     increase = false;
                     return rebalanceLeft(localRoot);
                 }
             }
             return localRoot;
         } else {
-            localRoot.right = add((AVLTree.AVLNode)localRoot.right, o);
-            if(increase) {
+            localRoot.right = add((AVLTree.AVLNode) localRoot.right, o);
+            if (increase) {
                 incrementBalance(localRoot);
-                if(localRoot.balance > RIGHT_HEAVY) {
+                if (localRoot.balance > RIGHT_HEAVY) {
                     increase = false;
                     return rebalanceRight(localRoot);
                 }
@@ -114,7 +114,7 @@ global class AVLTree extends BinarySearchTreeWithRotate {
      * @return a BinaryTree made out of root.left as it's root
      */
     global override BinaryTree getLeftSubTree() {
-        return new AVLTree(this.comp, (AVLTree.AVLNode)this.root.left, this.t);
+        return new AVLTree(this.comp, (AVLTree.AVLNode) this.root.left, this.t);
     }
 
     /**
@@ -123,7 +123,7 @@ global class AVLTree extends BinarySearchTreeWithRotate {
      * @return a BinaryTree made from root.right as it's root
      */
     global override BinaryTree getRightSubTree() {
-        return new AVLTree(this.comp, (AVLTree.AVLNode)this.root.right, this.t);
+        return new AVLTree(this.comp, (AVLTree.AVLNode) this.root.right, this.t);
     }
 
     /**
@@ -131,9 +131,9 @@ global class AVLTree extends BinarySearchTreeWithRotate {
      *
      * @param node the node to decrement it's balance
      */
-    private void decrementBalance(AVLTree.AVLNode node) {
+    private void decrementBalance(final AVLTree.AVLNode node) {
         node.balance--;
-        if(node.balance == BALANCED) {
+        if (node.balance == BALANCED) {
             increase = false;
             decrease = true;
         }
@@ -145,9 +145,9 @@ global class AVLTree extends BinarySearchTreeWithRotate {
      *
      * @param node the node to increment
      */
-    private void incrementBalance(AVLTree.AVLNode node) {
+    private void incrementBalance(final AVLTree.AVLNode node) {
         node.balance++;
-        if(node.balance == BALANCED) {
+        if (node.balance == BALANCED) {
             increase = false;
             decrease = true;
         }
@@ -159,17 +159,17 @@ global class AVLTree extends BinarySearchTreeWithRotate {
      * @param localRoot
      * @see KW Data Structures pages 486 - 487
      */
-    private AVLTree.AVLNode rebalanceLeft(AVLTree.AVLNode localRoot) {
-        AVLTree.AVLNode leftChild = (AVLTree.AVLNode)localRoot.left;
+    private AVLTree.AVLNode rebalanceLeft(final AVLTree.AVLNode localRoot) {
+        final AVLTree.AVLNode leftChild = (AVLTree.AVLNode) localRoot.left;
         //check for left-right heavy
-        if(leftChild.balance > BALANCED) {
-            AVLTree.AVLNode leftRightChild = (AVLTree.AVLNode)leftChild.right;
-            if(leftRightChild.balance < BALANCED) {
+        if (leftChild.balance > BALANCED) {
+            final AVLTree.AVLNode leftRightChild = (AVLTree.AVLNode) leftChild.right;
+            if (leftRightChild.balance < BALANCED) {
                 leftChild.balance = LEFT_HEAVY;
                 leftRightChild.balance = BALANCED;
                 localRoot.balance = BALANCED;
                 decrease = true;
-            } else if(leftRightChild.balance > BALANCED) {
+            } else if (leftRightChild.balance > BALANCED) {
                 leftChild.balance = BALANCED;
                 leftRightChild.balance = BALANCED;
                 localRoot.balance = RIGHT_HEAVY;
@@ -186,7 +186,7 @@ global class AVLTree extends BinarySearchTreeWithRotate {
             localRoot.balance = BALANCED;
             decrease = true;
         }
-        return (AVLTree.AVLNode)rotateRight(localRoot);
+        return (AVLTree.AVLNode) rotateRight(localRoot);
     }
 
     /**
@@ -196,17 +196,17 @@ global class AVLTree extends BinarySearchTreeWithRotate {
      * @param localRoot the node to begin balancing at
      * @see rebalanceLeft
      */
-    private AVLTree.AVLNode rebalanceRight(AVLTree.AVLNode localRoot) {
-        AVLTree.AVLNode rightChild = (AVLTree.AVLNode)localRoot.right;
+    private AVLTree.AVLNode rebalanceRight(final AVLTree.AVLNode localRoot) {
+        final AVLTree.AVLNode rightChild = (AVLTree.AVLNode) localRoot.right;
         //check for right-left heavy
-        if(rightChild.balance < BALANCED) {
-            AVLTree.AVLNode rightLeftChild = (AVLTree.AVLNode)rightChild.left;
-            if(rightLeftChild.balance > BALANCED) {
+        if (rightChild.balance < BALANCED) {
+            final AVLTree.AVLNode rightLeftChild = (AVLTree.AVLNode) rightChild.left;
+            if (rightLeftChild.balance > BALANCED) {
                 rightChild.balance = RIGHT_HEAVY;
                 rightLeftChild.balance = BALANCED;
                 localRoot.balance = BALANCED;
                 decrease = true;
-            } else if(rightLeftChild.balance < BALANCED) {
+            } else if (rightLeftChild.balance < BALANCED) {
                 rightChild.balance = BALANCED;
                 rightLeftChild.balance = BALANCED;
                 localRoot.balance = LEFT_HEAVY;
@@ -223,37 +223,37 @@ global class AVLTree extends BinarySearchTreeWithRotate {
             localRoot.balance = BALANCED;
             decrease = true;
         }
-        return (AVLTree.AVLNode)rotateLeft(localRoot);
+        return (AVLTree.AVLNode) rotateLeft(localRoot);
     }
 
 
-    global override Object del(Object o) {
-        root = del((AVLTree.AVLNode)root, o);
+    global override Object del(final Object o) {
+        root = del((AVLTree.AVLNode) root, o);
         return deleteReturn;
     }
 
-    private BinaryTree.Node del(AVLTree.AVLNode localRoot, Object o) {
-        if(localRoot == null) {
+    private BinaryTree.Node del(final AVLTree.AVLNode localRoot, final Object o) {
+        if (localRoot == null) {
             deleteReturn = null;
             return localRoot;
         }
 
-        Integer result = comp.compare(o, localRoot);
-        if(result < 0) {
+        final Integer result = comp.compare(o, localRoot);
+        if (result < 0) {
             localRoot.left = del(localRoot.left, o);
-            if(decrease) {
+            if (decrease) {
                 incrementBalance(localRoot);
-                if(localRoot.balance > RIGHT_HEAVY) {
+                if (localRoot.balance > RIGHT_HEAVY) {
                     decrease = false;
                     rebalanceRight(localRoot);
                 }
             }
             return localRoot;
-        } else if(result > 0) {
+        } else if (result > 0) {
             localRoot.right = del(localRoot.right, o);
-            if(decrease) {
+            if (decrease) {
                 decrementBalance(localRoot);
-                if(localRoot.balance < LEFT_HEAVY) {
+                if (localRoot.balance < LEFT_HEAVY) {
                     decrease = false;
                     rebalanceLeft(localRoot);
                 }
@@ -262,14 +262,14 @@ global class AVLTree extends BinarySearchTreeWithRotate {
         } else {
             deleteReturn = localRoot.data;
             decrease = true;
-            if(localRoot.left == null) {
+            if (localRoot.left == null) {
                 return localRoot.right;
-            } else if(localRoot.right == null) {
+            } else if (localRoot.right == null) {
                 return localRoot.left;
             } else {
                 //the node being deleted has 2 chilren
                 //replace it with it's inorder predecessor
-                if(localRoot.left.right == null) {
+                if (localRoot.left.right == null) {
                     // The left child has no right child.
                     // Replace the data with the data in the
                     // left child.
@@ -301,7 +301,7 @@ global class AVLTree extends BinarySearchTreeWithRotate {
          *
          * @param o The data that this node will hold.
          */
-        public AVLNode(Object o) {
+        public AVLNode(final Object o) {
             super(o);
             balance = AVLTree.BALANCED;
         }

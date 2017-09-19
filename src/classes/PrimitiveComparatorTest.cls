@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 private class PrimitiveComparatorTest {
 
     /**
@@ -41,9 +41,9 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compare() {
-        PrimitiveComparator c = new PrimitiveComparator();
-        Integer a = null;
-        Integer b = null;
+        final PrimitiveComparator c = new PrimitiveComparator();
+        final Integer a = null;
+        final Integer b = null;
         System.assert(c.compare(a, b) == 0);
         //System.assert(c.compare(a, 1) == -1);
         System.assert(c.compare(1, b) == 1);
@@ -55,7 +55,7 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareBooleans() {
-        PrimitiveComparator c = new PrimitiveComparator();
+        final PrimitiveComparator c = new PrimitiveComparator();
         System.assert(c.compare(false, true) == -1);
         System.assert(c.compare(true, true) == 0);
         System.assert(c.compare(true, false) == 1);
@@ -67,7 +67,7 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareDates() {
-        PrimitiveComparator c = new PrimitiveComparator();
+        final PrimitiveComparator c = new PrimitiveComparator();
         System.assert(c.compare(Date.today(), Date.today().addDays(1)) == -1);
         System.assert(c.compare(Date.today(), Date.today()) == 0);
         System.assert(c.compare(Date.today().addDays(1), Date.today()) == 1);
@@ -79,7 +79,7 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareDateTimes() {
-        PrimitiveComparator c = new PrimitiveComparator();
+        final PrimitiveComparator c = new PrimitiveComparator();
         System.assert(c.compare(DateTime.now(), DateTime.now().addDays(1)) == -1);
         System.assert(c.compare(DateTime.now(), DateTime.now()) == 0);
         System.assert(c.compare(DateTime.now().addDays(1), DateTime.now()) == 1);
@@ -91,10 +91,10 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareDoubles() {
-        PrimitiveComparator c = new PrimitiveComparator();
-        Double d1 = 3.14;
-        Double d2 = 5.1;
-        Double d3 = 5.1;
+        final PrimitiveComparator c = new PrimitiveComparator();
+        final Double d1 = 3.14;
+        final Double d2 = 5.1;
+        final Double d3 = 5.1;
         System.assert(c.compare(d1, d2) == -1);
         System.assert(c.compare(d2, d3) == 0);
         System.assert(c.compare(d2, d1) == 1);
@@ -106,7 +106,7 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareIntegers() {
-        PrimitiveComparator c = new PrimitiveComparator();
+        final PrimitiveComparator c = new PrimitiveComparator();
         System.assert(c.compare(1, 2) == -1);
         System.assert(c.compare(0, 0) == 0);
         System.assert(c.compare(2, 1) == 1);
@@ -118,10 +118,10 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareLongs() {
-        PrimitiveComparator c = new PrimitiveComparator();
-        Long l1 = 12345;
-        Long l2 = 12344;
-        Long l3 = 12345;
+        final PrimitiveComparator c = new PrimitiveComparator();
+        final Long l1 = 12345;
+        final Long l2 = 12344;
+        final Long l3 = 12345;
         System.assert(c.compare(l2, l1) == -1);
         System.assert(c.compare(l1, l3) == 0);
         System.assert(c.compare(l1, l2) == 1);
@@ -133,7 +133,7 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareStrings() {
-        PrimitiveComparator c = new PrimitiveComparator();
+        final PrimitiveComparator c = new PrimitiveComparator();
         System.assert(c.compare('a', 'b') == -1);
         System.assert(c.compare('a', 'a') == 0);
         System.assert(c.compare('b', 'a') == 1);
@@ -145,10 +145,10 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareTimes() {
-        PrimitiveComparator c = new PrimitiveComparator();
-        Time t1 = Time.newInstance(1, 2, 3, 4);
-        Time t2 = Time.newInstance(4, 2, 3, 4);
-        Time t3 = Time.newInstance(1, 2, 3, 4);
+        final PrimitiveComparator c = new PrimitiveComparator();
+        final Time t1 = Time.newInstance(1, 2, 3, 4);
+        final Time t2 = Time.newInstance(4, 2, 3, 4);
+        final Time t3 = Time.newInstance(1, 2, 3, 4);
         System.assert(c.compare(t1, t2) == -1);
         System.assert(c.compare(t1, t3) == 0);
         System.assert(c.compare(t2, t1) == 1);
@@ -160,10 +160,10 @@ private class PrimitiveComparatorTest {
      * @see PrimitiveComparator
      */
     static testMethod void compareException() {
-        PrimitiveComparator c = new PrimitiveComparator();
+        final PrimitiveComparator c = new PrimitiveComparator();
         try {
             c.compare(true, 'a');
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.assert(e instanceof IllegalArgumentException);
         }
     }

@@ -40,7 +40,7 @@ global interface Collection {
      * @param o The object to be added.
      * @return True if the element was successfully added.
      */
-    Boolean add(Object o);
+    Boolean add(final Object o);
 
     /**
      * Adds all of the elements in the specified collection to this collection.
@@ -48,7 +48,7 @@ global interface Collection {
      * @param c Collection to be added.
      * @return True if the operation was successful.
      */
-    Boolean addAll(Collection c);
+    Boolean addAll(final Collection c);
 
     /** Removes all elements from the collection. */
     void clear();
@@ -60,7 +60,7 @@ global interface Collection {
      * @param o The element we are looking for.
      * @return True if the collection contains the specified element.
      */
-    Boolean contains(Object o);
+    Boolean contains(final Object o);
 
     /**
      * Returns true if the collection contains all elements of the specified collection.
@@ -68,7 +68,7 @@ global interface Collection {
      * @param c Collection of elements we are looking for.
      * @return True if the collection contains all elements from the given collection.
      */
-    Boolean containsAll(Collection c);
+    Boolean containsAll(final Collection c);
 
     /**
      * Returns true if the collection has 0 elements in it.
@@ -83,7 +83,7 @@ global interface Collection {
      * @param o The element to be removed.
      * @return True if the element was successfully removed.
      */
-    Boolean remove(Object o);
+    Boolean remove(final Object o);
 
     /**
      * Gets an iterator for the collection.

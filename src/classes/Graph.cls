@@ -57,7 +57,7 @@ global interface Graph  {
      *
      * @param e the edge to insert
      */
-    void ins(Edge e);
+    void ins(final Edge e);
 
     /**
      * Determine whether an edge exists.
@@ -66,7 +66,7 @@ global interface Graph  {
      * @param dest the destination vertex
      * @return true if there is an edge from source to dest
      */
-     Boolean isEdge(Integer source, Integer dest);
+     Boolean isEdge(final Integer source, final Integer dest);
 
     /**
      * Gets the edge between the two vertices
@@ -75,7 +75,7 @@ global interface Graph  {
      * @param dest the destination vertex
      * @return an edge between the two vertices, or null if the edge is not found
      */
-    Edge getEdge(Integer source, Integer dest);
+    Edge getEdge(final Integer source, final Integer dest);
 
     /**
      * Gets an iterator for all edges that start at the source vertex
@@ -83,6 +83,6 @@ global interface Graph  {
      * @param the source vertex
      * @return an iterator that contains all of the edges that start at the source
      */
-    Iterator<Edge> edgeIterator(Integer source);
+    Iterator<Edge> edgeIterator(final Integer source);
 
 }

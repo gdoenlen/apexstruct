@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 global class RedBlackTreeTest {
 
     /**
@@ -43,7 +43,7 @@ global class RedBlackTreeTest {
      * @see RedBlackTree.add
      */
     static testMethod void addRightHeavy() {
-        BinarySearchTree rbt = new RedBlackTree(new PrimitiveComparator(), Integer.class);
+        final BinarySearchTree rbt = new RedBlackTree(new PrimitiveComparator(), Integer.class);
         for(Integer i = 0; i < 50; i++) {
             System.assert(rbt.add(i));
         }
@@ -57,7 +57,7 @@ global class RedBlackTreeTest {
      * @see RedBlackTree.add
      */
     static testMethod void addLeftHeavy() {
-        BinarySearchTree rbt = new RedBlackTree(new PrimitiveComparator(), Integer.class);
+        final BinarySearchTree rbt = new RedBlackTree(new PrimitiveComparator(), Integer.class);
         for(Integer i = 50; i >= 0; i--) {
             System.assert(rbt.add(i));
         }
@@ -71,7 +71,7 @@ global class RedBlackTreeTest {
      *
      */
     static testMethod void del() {
-        BinarySearchTree rbt = new RedBlackTree(new PrimitiveComparator(), Integer.class);
+        final BinarySearchTree rbt = new RedBlackTree(new PrimitiveComparator(), Integer.class);
         for(Integer i = 0; i < 50; i++) {
             rbt.add(i);
         }

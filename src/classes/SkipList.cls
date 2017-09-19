@@ -42,7 +42,7 @@
 global class SkipList extends AbstractCollection implements SearchTree {
 
     /** Comparator used to compare the objects in the list */
-    private Comparator comp;
+    private final Comparator comp;
 
     /** the number of items in the list */
     private Integer size = 0;
@@ -65,7 +65,7 @@ global class SkipList extends AbstractCollection implements SearchTree {
      *
      * @return Math.pow(2, maxLevel) - 1;
      */
-    private static Integer computeMaxCap(Integer maxLevel) {
+    private static Integer computeMaxCap(final Integer maxLevel) {
         return ~(~0 << maxLevel);
     }
 
@@ -75,7 +75,7 @@ global class SkipList extends AbstractCollection implements SearchTree {
      * @param t the type of objects in the collection
      * @param c the comparator used to compare the objects
      */
-    global SkipList(Type t, Comparator c) {
+    global SkipList(final Type t, final Comparator c) {
         super(t);
         this.comp = c;
     }
@@ -87,9 +87,9 @@ global class SkipList extends AbstractCollection implements SearchTree {
      * @return a random lograthmic distributed int between 1 and maxLevel
      */
     private Integer logRandom() {
-        Integer r = Randomizer.getInt(maxCap);
-        Integer k = (Integer)(Math.log(r + 1) / LOG2);
-        if(k > maxLevel - 1) {
+        final Integer r = Randomizer.getInt(maxCap);
+        Integer k = (Integer) (Math.log(r + 1) / LOG2);
+        if (k > maxLevel - 1) {
             k = maxLevel - 1;
         }
         return maxLevel - k;
@@ -101,11 +101,11 @@ global class SkipList extends AbstractCollection implements SearchTree {
      * @param o The object you're looking for
      * @return Array of skiplist nodes that preceed the sought for item at each level
      */
-    private SkipList.Node[] search(Object o) {
-        SkipList.Node[] pred = new SkipList.Node[maxLevel];
+    private SkipList.Node[] search(final Object o) {
+        final SkipList.Node[] pred = new SkipList.Node[maxLevel];
         SkipList.Node current = head;
-        for(Integer i = current.links.size() - 1; i >= 0; i--) {
-            while(current.links[i] != null && comp.compare(current.links[i].data , o) < 0) {
+        for (Integer i = current.links.size() - 1; i >= 0; i--) {
+            while (current.links[i] != null && comp.compare(current.links[i].data, o) < 0) {
                 current = current.links[i];
             }
             pred[i] = current;
@@ -119,33 +119,33 @@ global class SkipList extends AbstractCollection implements SearchTree {
      * @param o The object you want to add to the list
      * @return true if the object was added, false if it already exists.
      */
-    global override Boolean add(Object o) {
-        System.debug('adding: ' +  o);
+    global override Boolean add(final Object o) {
+        System.debug('adding: ' + o);
         SkipList.Node[] pred = search(o);
-        if(pred[0].links[0] != null && comp.compare(pred[0].links[0].data, o) == 0) {
+        if (pred[0].links[0] != null && comp.compare(pred[0].links[0].data, o) == 0) {
             return false;
         } else {
             size++;
-            Integer logRandom = logRandom();
+            final Integer logRandom = logRandom();
             System.debug('logRandom: ' + logRandom);
-            SkipList.Node newNode = new SkipList.Node(logRandom, o);
-            for(Integer i = pred.size() - 1; i >= 0; i--) {
+            final SkipList.Node newNode = new SkipList.Node(logRandom, o);
+            for (Integer i = pred.size() - 1; i >= 0; i--) {
                 newNode.links[i] = pred[i].links[i];
                 pred[i].links[i] = newNode;
             }
 
-            if(size > maxCap) {
+            if (size > maxCap) {
                 maxLevel++;
                 maxCap = computeMaxCap(maxLevel);
 
                 //simulates Arrays.copyOf
-                SkipList.Node[] h = new SkipList.Node[maxLevel];
-                for(Integer i = 0; i < head.links.size(); i++) {
+                final SkipList.Node[] h = new SkipList.Node[maxLevel];
+                for (Integer i = 0; i < head.links.size(); i++) {
                     h[i] = head.links[i];
                 }
                 head.links = h;
                 SkipList.Node[] p = new SkipList.Node[maxLevel];
-                for(Integer i = 0; i < pred.size(); i++) {
+                for (Integer i = 0; i < pred.size(); i++) {
                     p[i] = pred[i];
                 }
                 pred = p;
@@ -161,9 +161,9 @@ global class SkipList extends AbstractCollection implements SearchTree {
      * @param o the data you are looking for.
      * @return null if the list does not contain the data.
      */
-    global Object find(Object o) {
-        SkipList.Node[] pred = search(o);
-        if(pred[0].links[0] != null && comp.compare(pred[0].links[0].data, o) == 0) {
+    global Object find(final Object o) {
+        final SkipList.Node[] pred = search(o);
+        if (pred[0].links[0] != null && comp.compare(pred[0].links[0].data, o) == 0) {
             return pred[0].links[0].data;
         }
         return null;
@@ -176,7 +176,7 @@ global class SkipList extends AbstractCollection implements SearchTree {
      * @return true if found, false otherwise
      * @see find
      */
-    global override Boolean contains(Object o) {
+    global override Boolean contains(final Object o) {
         return find(o) != null;
     }
 
@@ -204,11 +204,11 @@ global class SkipList extends AbstractCollection implements SearchTree {
      * @return the data value of the node containing the object or null if it's not found
      * @see KW Data Structrues p. 530-531
      */
-    global Object del(Object o) {
-        SkipList.Node[] pred = search(o);
-        if(pred[0].links[0] != null && comp.compare(pred[0].links[0].data, o) == 0) {
-            Object val = pred[0].links[0].data;
-            for(Integer i = pred.size() - 1; i >= 0; i--) {
+    global Object del(final Object o) {
+        final SkipList.Node[] pred = search(o);
+        if (pred[0].links[0] != null && comp.compare(pred[0].links[0].data, o) == 0) {
+            final Object val = pred[0].links[0].data;
+            for (Integer i = pred.size() - 1; i >= 0; i--) {
                 pred[i].links[i] = pred[0].links[0].links[i];
             }
             return val;
@@ -224,7 +224,7 @@ global class SkipList extends AbstractCollection implements SearchTree {
      * @return true if the object was successfully removed
      * @see del
      */
-    global override Boolean remove(Object o) {
+    global override Boolean remove(final Object o) {
         return del(o) != null;
     }
 
@@ -232,7 +232,7 @@ global class SkipList extends AbstractCollection implements SearchTree {
         return new SkipListIterator(this);
     }
 
-    /* Lazily written. Results in O(2N) if you loop through all */
+    /* Results in O(2N) if you loop through all */
     //todo properly loop through the skiplist array links
     //todo track the size of the initial skiplist so we know if its edited throughout the iteration
     //the current implementation will only iterate through the objects that are in the list at time of instantiation
@@ -241,11 +241,11 @@ global class SkipList extends AbstractCollection implements SearchTree {
      */
     global class SkipListIterator implements Iterator<Object> {
 
-        private Object[] arr;
+        private final Object[] arr;
 
         private Integer pos = 0;
 
-        global SkipListIterator(SkipList sl) {
+        global SkipListIterator(final SkipList sl) {
             arr = new Object[sl.size()];
             toArray(sl.head);
         }
@@ -256,12 +256,14 @@ global class SkipList extends AbstractCollection implements SearchTree {
          *
          * @param localRoot the local node
          */
-        private void toArray(SkipList.Node localNode) {
-            if(localNode == null) {
+        private void toArray(final SkipList.Node localNode) {
+            if (localNode == null) {
                 return;
             }
-            if(localNode.data != null) { arr.add(localNode.data); }
-            for(Integer i = 0; i < localNode.links.size(); i++) {
+            if (localNode.data != null) {
+                arr.add(localNode.data);
+            }
+            for (Integer i = 0; i < localNode.links.size(); i++) {
                 toArray(localNode.links[i]);
             }
         }

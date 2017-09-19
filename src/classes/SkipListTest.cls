@@ -35,18 +35,18 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 global class SkipListTest {
 
     static testMethod void add() {
-        SkipList sl = new SkipList(Integer.class, new PrimitiveComparator());
-        Set<Integer> nums = new Set<Integer>();
-        for(Integer i = 0; i < 200; i++) {
-            Integer j = Randomizer.getInt(100);
+        final SkipList sl = new SkipList(Integer.class, new PrimitiveComparator());
+        final Set<Integer> nums = new Set<Integer>();
+        for (Integer i = 0; i < 200; i++) {
+            final Integer j = Randomizer.getInt(100);
             nums.add(i);
             sl.add(j);
         }
-        for(Integer i : nums) {
+        for (Integer i : nums) {
             System.assert(sl.contains(i));
         }
     }

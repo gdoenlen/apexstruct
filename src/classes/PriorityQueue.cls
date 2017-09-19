@@ -36,13 +36,13 @@
 global class PriorityQueue extends AbstractQueue {
 
     /** The backing list that is used for the data */
-    private List<Object> data;
+    private final List<Object> data;
 
     /** The comparator used to compare the objects */
-    private Comparator comp;
+    private final Comparator comp;
 
     /** The maximum number of elements the queue can hold */
-    private Integer capacity;
+    private final Integer capacity;
 
     /**
      * Constructor. Initializes the comparator used and the type of objects held.
@@ -51,7 +51,7 @@ global class PriorityQueue extends AbstractQueue {
      * @param t the type of objects held by the collection
      * @see Comparator
      */
-    global PriorityQueue(Comparator comp, Type t) {
+    global PriorityQueue(final Comparator comp, final Type t) {
         super(t);
         this.comp = comp;
         data = new List<Object>();
@@ -65,7 +65,7 @@ global class PriorityQueue extends AbstractQueue {
      * @param capacity
      * @see Comparator
      */
-    global PriorityQueue(Comparator comp, Type t, Integer capacity) {
+    global PriorityQueue(final Comparator comp, final Type t, final Integer capacity) {
         this(comp, t);
         this.capacity = capacity;
     }
@@ -90,35 +90,35 @@ global class PriorityQueue extends AbstractQueue {
      * @return the top item from the queue.
      */
     global override Object poll() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
 
-        Object result = data[0];
+        final Object result = data[0];
 
         //only one element in the queue, safe to just remove the first item
-        if(data.size() == 1) {
+        if (data.size() == 1) {
             data.remove(0);
             return result;
         }
 
         data.set(0, data.remove(data.size() - 1));
         Integer parent = 0;
-        while(true) {
-            Integer leftChild = 2 * parent + 1;
-            if(leftChild >= data.size()) {
+        while (true) {
+            final Integer leftChild = 2 * parent + 1;
+            if (leftChild >= data.size()) {
                 break;
             }
-            Integer rightChild = leftChild + 1;
+            final Integer rightChild = leftChild + 1;
 
             //assumes the left child is smaller
             Integer minChild = leftChild;
             //now actually check if the which is smallest
-            if(rightChild < data.size() && comp.compare(data[leftChild], data[rightChild]) > 0) {
+            if (rightChild < data.size() && comp.compare(data[leftChild], data[rightChild]) > 0) {
                 minChild = rightChild;
             }
             //move the smaller child up the heap
-            if(comp.compare(data[parent], data[minChild]) > 0) {
+            if (comp.compare(data[parent], data[minChild]) > 0) {
                 swap(parent, minChild);
                 parent = minChild;
             } else {
@@ -133,7 +133,7 @@ global class PriorityQueue extends AbstractQueue {
      *
      * @param o the object to add
      */
-    global override Boolean offer(Object o) {
+    global override Boolean offer(final Object o) {
         super.add(o);
         data.add(o);
 
@@ -143,7 +143,7 @@ global class PriorityQueue extends AbstractQueue {
         Integer parent = (child - 1) / 2;
 
         //reheap the queue
-        while(parent >= 0 && comp.compare(data[parent], data[child]) > 0) {
+        while (parent >= 0 && comp.compare(data[parent], data[child]) > 0) {
             swap(parent, child);
             child = parent;
             parent = (child - 1) / 2;
@@ -157,8 +157,8 @@ global class PriorityQueue extends AbstractQueue {
      * @param left The left index
      * @param right the right index
      */
-    private void swap(Integer left, Integer right) {
-        Object t = data[left];
+    private void swap(final Integer left, final Integer right) {
+        final Object t = data[left];
         data[left] = data[right];
         data[right] = t;
     }
@@ -169,7 +169,7 @@ global class PriorityQueue extends AbstractQueue {
      * @param o the object to add to the collection
      * @see add
      */
-    global override Boolean add(Object o) {
+    global override Boolean add(final Object o) {
         return offer(o);
     }
 

@@ -39,7 +39,7 @@ global abstract class AbstractQueue extends AbstractCollection implements Queue 
      *
      * @param t The type of the Queue.
      */
-    protected AbstractQueue(Type t) {
+    protected AbstractQueue(final Type t) {
         super(t);
     }
 
@@ -50,7 +50,7 @@ global abstract class AbstractQueue extends AbstractCollection implements Queue 
      * @param o The element to be added.
      * @return True if the element was added to the queue.
      */
-    global virtual Boolean offer(Object o) {
+    global virtual Boolean offer(final Object o) {
         super.add(o);
         return true;
     }
@@ -75,7 +75,7 @@ global abstract class AbstractQueue extends AbstractCollection implements Queue 
      * @return nothing
      * @throws NoSuchElementException if this queue is empty
      */
-    global override Boolean remove(Object o) {
+    global override Boolean remove(final Object o) {
         throw new UnsupportedOperationException();
         return false;
     }
@@ -88,7 +88,7 @@ global abstract class AbstractQueue extends AbstractCollection implements Queue 
      * returns <tt>null</tt>.
      */
     global override void clear() {
-        while(poll() != null);
+        while (poll() != null);
     }
 
 
@@ -97,7 +97,7 @@ global abstract class AbstractQueue extends AbstractCollection implements Queue 
      *
      * @throws UnsupportedOperationException
      */
-    global override Boolean contains(Object o) {
+    global override Boolean contains(final Object o) {
         throw new UnsupportedOperationException('Contains is not supported by queues.');
     }
 }

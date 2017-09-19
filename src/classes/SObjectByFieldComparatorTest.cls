@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 private class SObjectByFieldComparatorTest {
 
     /**
@@ -42,20 +42,20 @@ private class SObjectByFieldComparatorTest {
      */
     static testMethod void compareException() {
         try {
-            SObjectByFieldComparator c = new SObjectByFieldComparator('');
-        } catch(Exception e) {
+            final SObjectByFieldComparator c = new SObjectByFieldComparator('');
+        } catch (Exception e) {
             System.assert(e instanceof IllegalArgumentException);
         }
 
         try {
-            SObjectByFieldComparator c = new SObjectByFieldComparator('  ');
-        } catch(Exception e) {
+            final SObjectByFieldComparator c = new SObjectByFieldComparator('  ');
+        } catch (Exception e) {
             System.assert(e instanceof IllegalArgumentException);
         }
 
         try {
-            SObjectByFieldComparator c = new SObjectByFieldComparator(null);
-        } catch(Exception e) {
+            final SObjectByFieldComparator c = new SObjectByFieldComparator(null);
+        } catch (Exception e) {
             System.assert(e instanceof IllegalArgumentException);
         }
     }
@@ -67,10 +67,10 @@ private class SObjectByFieldComparatorTest {
      * @see SObjectByFieldComparator
      */
     static testMethod void compareNulls() {
-        SObjectByFieldComparator c = new SObjectByFieldComparator('Name');
+        final SObjectByFieldComparator c = new SObjectByFieldComparator('Name');
         SObject one;
         SObject two;
-        Account a = new Account(Name = 'a');
+        final Account a = new Account(Name = 'a');
         System.assert(c.compare(one, two) == 0);
         System.assert(c.compare(one, a) == -1);
         System.assert(c.compare(a, two) == 1);
@@ -82,9 +82,9 @@ private class SObjectByFieldComparatorTest {
      * @see SObjectByFieldComparator
      */
     static testMethod void compare() {
-        SObjectByFieldComparator c = new SObjectByFieldComparator('Name');
-        Account a = new Account(Name = 'a');
-        Account b = new Account(Name = 'b');
+        final SObjectByFieldComparator c = new SObjectByFieldComparator('Name');
+        final Account a = new Account(Name = 'a');
+        final Account b = new Account(Name = 'b');
         System.assert(c.compare(a, b) == -1);
     }
 }

@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 global class MatrixGraphTest {
 
     /**
@@ -46,20 +46,20 @@ global class MatrixGraphTest {
      * @see MatrixGraph
      */
     static testMethod void test() {
-        Graph g = new MatrixGraph(10, false);
+        final Graph g = new MatrixGraph(10, false);
         System.assertEquals(10, g.getNumV());
         System.assertEquals(false, g.isDirected());
 
-        for(Integer i = 0; i < 10; i++) {
+        for (Integer i = 0; i < 10; i++) {
             g.ins(new Edge(1, i));
             System.assert(g.isEdge(1, i));
             //directed == false
             System.assert(g.isEdge(i, 1));
         }
         System.assert(!g.isEdge(1, 15));
-        Iterator<Edge> it = g.edgeIterator(1);
-        while(it.hasNext()) {
-            Edge e = it.next();
+        final Iterator<Edge> it = g.edgeIterator(1);
+        while (it.hasNext()) {
+            final Edge e = it.next();
             System.assertEquals(1, e.getSource());
         }
     }

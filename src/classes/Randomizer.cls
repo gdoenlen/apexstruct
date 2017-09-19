@@ -45,8 +45,8 @@ global class Randomizer {
      * @param max the maximum number that can be returned exclusive
      * @return an integer between 0 and max ( 0 >= n < max )
      */
-    global static Integer getInt(Integer max) {
-        Double d = Math.random() * max;
+    global static Integer getInt(final Integer max) {
+        final Double d = Math.random() * max;
         return d.intValue();
     }
 

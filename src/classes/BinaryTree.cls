@@ -45,7 +45,7 @@ global abstract class BinaryTree extends AbstractCollection {
      *
      * @param t Type of the collection
      */
-    global BinaryTree(Type t) {
+    global BinaryTree(final Type t) {
         super(t);
         size = 0;
     }
@@ -56,7 +56,7 @@ global abstract class BinaryTree extends AbstractCollection {
      * @param root The new root node
      * @param t Type of the collection
      */
-    protected BinaryTree(BinaryTree.Node root, Type t) {
+    protected BinaryTree(final BinaryTree.Node root, final Type t) {
         this(t);
         this.root = root;
     }
@@ -67,7 +67,7 @@ global abstract class BinaryTree extends AbstractCollection {
      *
      *
      */
-    global BinaryTree(Object data, BinaryTree left, BinaryTree right, Type t) {
+    global BinaryTree(final Object data, final BinaryTree left, final BinaryTree right, final Type t) {
         this(t);
         root = new BinaryTree.Node(data);
         root.left = left.root;
@@ -104,7 +104,7 @@ global abstract class BinaryTree extends AbstractCollection {
      * @return Array of all data elements in the tree.
      */
     global override Object[] toArray() {
-        Object[] arr = new Object[size()];
+        final Object[] arr = new Object[size()];
         preorderTraverse(root, arr);
         return arr;
 
@@ -115,7 +115,7 @@ global abstract class BinaryTree extends AbstractCollection {
      *
      * @param localRoot the node to start at
      */
-    private void preorderTraverse(BinaryTree.Node localRoot, Object[] arr) {
+    private void preorderTraverse(final BinaryTree.Node localRoot, final Object[] arr) {
         if(localRoot != null) {
             arr.add(localRoot.data);
             preorderTraverse(localRoot.left, arr);
@@ -139,7 +139,7 @@ global abstract class BinaryTree extends AbstractCollection {
          *
          * @param o The data of this node.
          */
-        global BinaryTree.Node(Object o) {
+        global BinaryTree.Node(final Object o) {
             this.data = o;
         }
 
@@ -164,13 +164,13 @@ global abstract class BinaryTree extends AbstractCollection {
 
     private class BinaryTreeIterator implements Iterator<Object> {
 
-        private BinaryTree tree;
+        private final BinaryTree tree;
 
-        private Object[] arr;
+        private final Object[] arr;
 
         private Integer position;
 
-        public BinaryTreeIterator(BinaryTree tree) {
+        public BinaryTreeIterator(final BinaryTree tree) {
             this.tree = tree;
             arr = tree.toArray();
             position = 0;

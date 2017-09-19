@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 global class LinkedQueueTest {
 
     /**
@@ -91,12 +91,12 @@ global class LinkedQueueTest {
      */
     static testMethod void it() {
         Queue q = new LinkedQueue(Integer.class);
-        for(Integer i = 0; i < 100; i++) {
+        for (Integer i = 0; i < 100; i++) {
             q.offer(i);
         }
-        Iterator<Object> it = q.iterator();
+        final Iterator<Object> it = q.iterator();
         Integer count = 0;
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object next = it.next();
             count++;
         }
@@ -113,7 +113,7 @@ global class LinkedQueueTest {
      */
     static testMethod void clear() {
         Queue q = new LinkedQueue(Integer.class);
-        for(Integer i = 0; i < 100; i++) {
+        for (Integer i = 0; i < 100; i++) {
             q.offer(i);
         }
         q.clear();
@@ -130,7 +130,7 @@ global class LinkedQueueTest {
         Queue q = new LinkedQueue(Integer.class);
         try {
             q.contains(1);
-        } catch(UnsupportedOperationException ex) {
+        } catch (UnsupportedOperationException ex) {
             System.assert(true);
         }
     }
@@ -145,7 +145,7 @@ global class LinkedQueueTest {
         Queue q = new LinkedQueue(Integer.class);
         try {
             q.remove(1);
-        } catch(UnsupportedOperationException ex) {
+        } catch (UnsupportedOperationException ex) {
             System.assert(true);
         }
     }

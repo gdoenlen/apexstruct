@@ -34,10 +34,10 @@
  */
 global abstract class AbstractCollection implements Collection {
     /** Type of the collection */
-    protected Type t;
+    protected final Type t;
 
     /** Constructor for subclasses. Initializes the Collection type. */
-    protected AbstractCollection(Type t) {
+    protected AbstractCollection(final Type t) {
         this.t = t;
     }
 
@@ -61,7 +61,7 @@ global abstract class AbstractCollection implements Collection {
      * @param o The object to be added.
      * @return True if the element was successfully added.
      */
-    global virtual Boolean add(Object o) {
+    global virtual Boolean add(final Object o) {
         return validateType(o);
     }
 
@@ -70,8 +70,8 @@ global abstract class AbstractCollection implements Collection {
      *
      * @param o The object to verify.
      */
-    protected virtual Boolean validateType(Object o) {
-        if(getType(o) != t.getName()) {
+    protected virtual Boolean validateType(final Object o) {
+        if (getType(o) != t.getName()) {
             throw new IllegalArgumentException('Object type must be of type: ' + t.getName());
         }
         return true;
@@ -86,11 +86,11 @@ global abstract class AbstractCollection implements Collection {
      * @param o The element we are looking for.
      * @return True if the collection contains the specified element.
      */
-    global virtual Boolean contains(Object o) {
-        Iterator<Object> it = iterator();
-        while(it.hasNext()) {
-            Object t = it.next();
-            if(t == o) {
+    global virtual Boolean contains(final Object o) {
+        final Iterator<Object> it = iterator();
+        while (it.hasNext()) {
+            final Object t = it.next();
+            if (t == o) {
                 return true;
             }
         }
@@ -102,9 +102,9 @@ global abstract class AbstractCollection implements Collection {
      * @return Array of the collection.
      */
     global virtual Object[] toArray() {
-        Object[] a = new Object[size()];
-        Iterator<Object> it = iterator();
-        for(Integer i = 0; i < a.size(); i++) {
+        final Object[] a = new Object[size()];
+        final Iterator<Object> it = iterator();
+        for (Integer i = 0; i < a.size(); i++) {
             a[i] = it.next();
         }
         return a;
@@ -116,10 +116,10 @@ global abstract class AbstractCollection implements Collection {
      * @param c Collection of elements we are looking for.
      * @return True if the collection contains all elements from the given collection.
      */
-    global virtual Boolean containsAll(Collection c) {
-        Iterator<Object> it = c.iterator();
-        while(it.hasNext()) {
-            if(!contains(it.next())) {
+    global virtual Boolean containsAll(final Collection c) {
+        final Iterator<Object> it = c.iterator();
+        while (it.hasNext()) {
+            if (!contains(it.next())) {
                 return false;
             }
         }
@@ -141,7 +141,7 @@ global abstract class AbstractCollection implements Collection {
      * @param o The element to be removed.
      * @return True if the element was successfully removed.
      */
-    global abstract Boolean remove(Object o);
+    global abstract Boolean remove(final Object o);
 
     /**
      * Adds all elements from the specified collection to the collection
@@ -149,11 +149,11 @@ global abstract class AbstractCollection implements Collection {
      * @param c Collection of objects to be added.
      * @return True if any element has been added to the collection.
      */
-    global virtual Boolean addAll(Collection c) {
+    global virtual Boolean addAll(final Collection c) {
         Boolean modified = false;
-        Iterator<Object> it = c.iterator();
-        while(it.hasNext()) {
-            if(add(it.next())) {
+        final Iterator<Object> it = c.iterator();
+        while (it.hasNext()) {
+            if (add(it.next())) {
                 modified = true;
             }
         }
@@ -168,9 +168,9 @@ global abstract class AbstractCollection implements Collection {
      * @param o The object who's type we are looking for.
      * @return the type of o in String form.
      */
-    protected virtual String getType(Object o) {
+    protected virtual String getType(final Object o) {
         if(o == null)                       return '';
-        if(o instanceof SObject)            return ((SObject)o).getSObjectType().getDescribe().getName()+''; 
+        if(o instanceof SObject)            return ((SObject) o).getSObjectType().getDescribe().getName();
         if(o instanceof Boolean)            return 'Boolean';
         if(o instanceof Id)                 return 'Id';
         if(o instanceof String)             return 'String';

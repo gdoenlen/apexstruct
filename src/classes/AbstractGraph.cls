@@ -35,10 +35,10 @@
 global abstract class AbstractGraph implements Graph {
 
     /** true if this is a directed graph */
-    protected Boolean directed;
+    protected final Boolean directed;
 
     /** number of vertices */
-    protected Integer numV;
+    protected final Integer numV;
 
     /**
      * Constructs an empty graph with the given number of vertices and direction
@@ -46,7 +46,7 @@ global abstract class AbstractGraph implements Graph {
      * @param numV the number of vertices
      * @param directed true if this is a directed graph
      */
-    global AbstractGraph(Integer numV, Boolean directed) {
+    global AbstractGraph(final Integer numV, final Boolean directed) {
         this.directed = directed;
         this.numV = numV;
     }

@@ -35,7 +35,7 @@
 global class LinkedQueue extends AbstractQueue {
 
     /** SFDC List that backs the queue */
-    private List<Object> data = new List<Object>();
+    private final List<Object> data = new List<Object>();
     /** Maximum size of the queue. */
     private Integer capacity;
 
@@ -45,7 +45,7 @@ global class LinkedQueue extends AbstractQueue {
      *
      * @param t The type of the collection.
      */
-    global LinkedQueue(Type t) {
+    global LinkedQueue(final Type t) {
         super(t);
         data = new List<Object>();
     }
@@ -56,7 +56,7 @@ global class LinkedQueue extends AbstractQueue {
      * @param t The type of the collection.
      * @param capacity The maximum size of the collection.
      */
-    global LinkedQueue(Type t, Integer capacity) {
+    global LinkedQueue(final Type t, final Integer capacity) {
         super(t);
         this.capacity = capacity;
     }
@@ -67,9 +67,9 @@ global class LinkedQueue extends AbstractQueue {
      * @param o The element to be added.
      * @return True if the element was sucessfully added to the queue.
      */
-    global override Boolean offer(Object o) {
+    global override Boolean offer(final Object o) {
         super.offer(o);
-        if(size() == capacity) {
+        if (size() == capacity) {
             return false;
         } else {
             data.add(o);
@@ -92,7 +92,7 @@ global class LinkedQueue extends AbstractQueue {
      * @return Head of the queue/
      */
     global override Object poll() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         } else {
             return data.remove(0);
@@ -105,7 +105,7 @@ global class LinkedQueue extends AbstractQueue {
      * @return the head of the queue.
      */
     global override Object peek() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         } else {
             return data[0];

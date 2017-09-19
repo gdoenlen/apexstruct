@@ -47,16 +47,16 @@ global class EdgeTest {
      */
     static testMethod void equals() {
         //equals itself == true
-        Edge e = new Edge(1, 2);
+        final Edge e = new Edge(1, 2);
         System.assert(e.equals(e));
 
         //different weights, but they have the same source and dest
-        Double d = 5.0;
-        Edge t = new Edge(1, 2, d);
+        final Double d = 5.0;
+        final Edge t = new Edge(1, 2, d);
         System.assert(e.equals(t));
 
         //different source and dest
-        Edge r = new Edge(2, 1);
+        final Edge r = new Edge(2, 1);
         System.assert(!e.equals(r));
 
         //completly different types
@@ -73,13 +73,13 @@ global class EdgeTest {
      */
     static testMethod void hash() {
         //2 edges with the same source and dest should have the same hashcode, weight doesn't matter
-        Edge e = new Edge(1, 2);
-        Double d = 5.0;
-        Edge t = new Edge(1, 2, d);
+        final Edge e = new Edge(1, 2);
+        final Double d = 5.0;
+        final Edge t = new Edge(1, 2, d);
         System.assertEquals(e.hashCode(), t.hashCode());
 
         //edges with different source/dest shouldn't be equal
-        Edge r = new Edge(2, 1);
+        final Edge r = new Edge(2, 1);
         System.assertNotEquals(e.hashCode(), r.hashCode());
     }
 
@@ -91,14 +91,14 @@ global class EdgeTest {
      * @see Edge.getWeight
      */
     static testMethod void gets() {
-        Edge e = new Edge(1, 2);
+        final Edge e = new Edge(1, 2);
         System.assertEquals(1, e.getSource());
         System.assertEquals(2, e.getDest());
-        Double d = 1.0;
+        final Double d = 1.0;
         System.assertEquals(d, e.getWeight());
 
-        Double r = 7.0;
-        Edge t = new Edge(2, 1, r);
+        final Double r = 7.0;
+        final Edge t = new Edge(2, 1, r);
         System.assertEquals(r, t.getWeight());
     }
 }

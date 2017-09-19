@@ -35,13 +35,13 @@
 global class Edge {
 
     /** Destination vertex */
-    private Integer dest;
+    private final Integer dest;
 
     /** Source vertex */
-    private Integer source;
+    private final Integer source;
 
     /** Weight of the edge */
-    private Double weight;
+    private final Double weight;
 
     /** hashCode of this edge */
     private Integer hashCode;
@@ -53,7 +53,7 @@ global class Edge {
      * @param source the source vertex
      * @param dest the dest vertex
      */
-    global Edge(Integer source, Integer dest) {
+    global Edge(final Integer source, final Integer dest) {
         this.source = source;
         this.dest = dest;
         this.weight = 1.0;
@@ -67,7 +67,7 @@ global class Edge {
      * @param dest destination vertex
      * @param weight weight of the edge
      */
-    global Edge(Integer source, Integer dest, Double weight) {
+    global Edge(final Integer source, final Integer dest, final Double weight) {
         this.source = source;
         this.dest = dest;
         this.weight = weight;
@@ -80,11 +80,13 @@ global class Edge {
      * @param o an object
      * @return true if o is an instance of Edge and their source and dest are the same
      */
-    global Boolean equals(Object o) {
+    global Boolean equals(final Object o) {
         //causes an stack limit to be reach. this doesn't make sense. should only compare memory addresses
         //if(this == o){ return true; }
-        if(!(o instanceof Edge)) { return false; }
-        final Edge that = (Edge)o;
+        if (!(o instanceof Edge)) {
+            return false;
+        }
+        final Edge that = (Edge) o;
         return (this.source == that.source && this.dest == that.dest);
     }
 
@@ -97,7 +99,7 @@ global class Edge {
      * @see HashCodeUtil
      */
     global override Integer hashCode() {
-        if(hashCode == null) {
+        if (hashCode == null) {
             hashCode = new HashCodeUtil().addHash(source).addHash(dest).getHash();
         }
         return hashCode;

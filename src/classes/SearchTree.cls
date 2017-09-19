@@ -40,7 +40,7 @@ global interface SearchTree extends Collection {
      * @param target the object you want to find
      * @return The object if found, null if not
      */
-    Object find(Object target);
+    Object find(final Object target);
 
     /**
      * Removes an item from the tree. Returns it if it was succesful, null otherwise
@@ -48,5 +48,5 @@ global interface SearchTree extends Collection {
      * @param target The object to remove
      * @return The object if succesfully removed, null if not
      */
-    Object del(Object target);
+    Object del(final Object target);
 }

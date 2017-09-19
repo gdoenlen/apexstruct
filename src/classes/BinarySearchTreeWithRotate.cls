@@ -41,7 +41,7 @@ global abstract class BinarySearchTreeWithRotate extends BinarySearchTree {
      * @param comp The comparator used to compare the objects
      * @param t The type of objects in the collection
      */
-    global BinarySearchTreeWithRotate(Comparator comp, Type t) {
+    global BinarySearchTreeWithRotate(final Comparator comp, final Type t) {
         super(comp, t);
     }
 
@@ -52,7 +52,7 @@ global abstract class BinarySearchTreeWithRotate extends BinarySearchTree {
      * @param root The root node of the tree
      * @param Type the type of objects in the collection
      */
-    protected BinarySearchTreeWithRotate(Comparator comp, BinaryTree.Node root, Type t) {
+    protected BinarySearchTreeWithRotate(final Comparator comp, final BinaryTree.Node root, final Type t) {
         super(comp, root, t);
     }
 
@@ -64,8 +64,8 @@ global abstract class BinarySearchTreeWithRotate extends BinarySearchTree {
      * @param left The left child of the new tree
      * @param right the right child of the new tree
      */
-    global BinarySearchTreeWithRotate(Comparator comp, Object data, BinarySearchTreeWithRotate left,
-                                        BinarySearchTreeWithRotate right, Type t)
+    global BinarySearchTreeWithRotate(final Comparator comp, final Object data, final BinarySearchTreeWithRotate left,
+                                      final BinarySearchTreeWithRotate right, final Type t)
     {
         super(comp, data, left, right, t);
     }
@@ -76,8 +76,8 @@ global abstract class BinarySearchTreeWithRotate extends BinarySearchTree {
      * @param localRoot the node to rotate around
      * @return the new root of the binarytree
      */
-    protected virtual BinaryTree.Node rotateRight(BinaryTree.Node localRoot) {
-        BinaryTree.Node temp = localRoot.left;
+    protected virtual BinaryTree.Node rotateRight(final BinaryTree.Node localRoot) {
+        final BinaryTree.Node temp = localRoot.left;
         localRoot.left = temp.right;
         temp.right = localRoot;
         return temp;
@@ -88,8 +88,8 @@ global abstract class BinarySearchTreeWithRotate extends BinarySearchTree {
      *
      * @param localRoot the node to rotate around
      */
-    protected virtual BinaryTree.Node rotateleft(BinaryTree.Node localRoot) {
-        BinaryTree.Node temp = localRoot.right;
+    protected virtual BinaryTree.Node rotateleft(final BinaryTree.Node localRoot) {
+        final BinaryTree.Node temp = localRoot.right;
         localRoot.right = temp.left;
         temp.left = localRoot;
         return temp;

@@ -43,7 +43,7 @@ global class SObjectByFieldComparator implements Comparator {
     private final Comparator c = new PrimitiveComparator();
 
     /** The field to compare by. */
-    private String field;
+    private final String field;
 
     /**
      * Constructor. Assigns the field variable.
@@ -51,8 +51,8 @@ global class SObjectByFieldComparator implements Comparator {
      * @param field The field you want to compare by.
      * @throws IllegalArgumentException
      */
-    global SObjectByFieldComparator(String field) {
-        if(String.isBlank(field)) {
+    global SObjectByFieldComparator(final String field) {
+        if (String.isBlank(field)) {
             throw new IllegalArgumentException('Field cannot be blank or null');
         }
         this.field = field;
@@ -65,14 +65,14 @@ global class SObjectByFieldComparator implements Comparator {
      * @param one The second object to compare
      * @param two The second SObject to compare
      */
-    global Integer compare(Object a, Object b) {
-        if(a ==  null && b == null) {
+    global Integer compare(final Object a, final Object b) {
+        if (a == null && b == null) {
             return 0;
-        } else if(a == null) {
+        } else if (a == null) {
             return -1;
-        } else if(b == null) {
+        } else if (b == null) {
             return 1;
         }
-        return c.compare(((SObject)a).get(field), ((SObject)b).get(field));
+        return c.compare(((SObject) a).get(field), ((SObject) b).get(field));
     }
 }

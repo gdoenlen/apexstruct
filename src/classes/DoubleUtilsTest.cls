@@ -44,10 +44,10 @@ global class DoubleUtilsTest {
      * @see DoubleUtils
      */
     static testMethod void constants() {
-        Double a = DoubleUtils.POSITIVE_INFINITY;
-        Double b = DoubleUtils.NEGATIVE_INFINITY;
-        Double c = DoubleUtils.MAX_VALUE;
-        Double d = DoubleUtils.MIN_VALUE;
+        final Double a = DoubleUtils.POSITIVE_INFINITY;
+        final Double b = DoubleUtils.NEGATIVE_INFINITY;
+        final Double c = DoubleUtils.MAX_VALUE;
+        final Double d = DoubleUtils.MIN_VALUE;
 
         System.assert(b == -(a));
         System.assert(c == ((2 - Math.pow(2, -52)) * Math.pow(2, 1023)));

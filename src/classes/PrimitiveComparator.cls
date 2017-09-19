@@ -49,29 +49,32 @@ global class PrimitiveComparator implements Comparator {
      * @return one < two: -1, one == two: 0, one > two: 1
      * @throws IllegalArgumentException
      */
-    global Integer compare(Object one, Object two){
-        if(one==null && two==null) { return 0; }
-        else if(one==null) { return -1; }
-        else if(two==null) { return 1; }
-        else if(one instanceof Boolean && two instanceof Boolean) {
-            return compare((Boolean)one, (Boolean)two);
-        } else if(one instanceof Date && two instanceof Date) {
-            return compare((Date)one, (Date)two);
-        } else if(one instanceof Datetime && two instanceof Datetime) {
-            return compare((Datetime)one, (Datetime)two);
-        } else if(one instanceof Integer && two instanceof Integer) {
-            return compare((Integer)one, (Integer)two);
-        } else if(one instanceof Long && two instanceof Long) {
-            return compare((Long)one, (Long)two);
-        } else if(one instanceof Double && two instanceof Double) {
-            return compare((Double)one, (Double)two);
-        } else if(one instanceof Time && two instanceof Time) {
-            return compare((Time)one, (Time)two);
-        } else if(one instanceof String && two instanceof String) {
-            return compare((String)one, (String)two);
+    global Integer compare(final Object one, final Object two) {
+        if (one == null && two == null) {
+            return 0;
+        } else if (one == null) {
+            return -1;
+        } else if (two == null) {
+            return 1;
+        } else if (one instanceof Boolean && two instanceof Boolean) {
+            return compare((Boolean) one, (Boolean) two);
+        } else if (one instanceof Date && two instanceof Date) {
+            return compare((Date) one, (Date) two);
+        } else if (one instanceof Datetime && two instanceof Datetime) {
+            return compare((Datetime) one, (Datetime) two);
+        } else if (one instanceof Integer && two instanceof Integer) {
+            return compare((Integer) one, (Integer) two);
+        } else if (one instanceof Long && two instanceof Long) {
+            return compare((Long) one, (Long) two);
+        } else if (one instanceof Double && two instanceof Double) {
+            return compare((Double) one, (Double) two);
+        } else if (one instanceof Time && two instanceof Time) {
+            return compare((Time) one, (Time) two);
+        } else if (one instanceof String && two instanceof String) {
+            return compare((String) one, (String) two);
         } else {
             throw new IllegalArgumentException(
-            'Both arguments must be type Boolean, Date, Datetime, Decimal, Double, ID, Integer, Long, Time, or String');
+                    'Both arguments must be type Boolean, Date, Datetime, Decimal, Double, ID, Integer, Long, Time, or String');
         }
     }
 
@@ -82,10 +85,8 @@ global class PrimitiveComparator implements Comparator {
      * @param two second object
      * @return one < two: -1, one == two: 0, one > two: 1
      */
-    global Integer compare(Boolean one, Boolean two){
-        if(!one && two)     return -1;
-        else if(one == two) return 0;
-        else                return 1;
+    global Integer compare(final Boolean one, final Boolean two) {
+        if (!one && two) return -1; else if (one == two) return 0; else return 1;
     }
 
     /**
@@ -95,10 +96,8 @@ global class PrimitiveComparator implements Comparator {
      * @param two second object
      * @return one < two: -1, one == two: 0, one > two: 1
      */
-    global Integer compare(Date one, Date two) {
-        if(one < two)       return -1;
-        else if(one == two) return 0;
-        else                return 1;
+    global Integer compare(final Date one, final Date two) {
+        if (one < two) return -1; else if (one == two) return 0; else return 1;
     }
 
     /**
@@ -108,10 +107,8 @@ global class PrimitiveComparator implements Comparator {
      * @param two second object
      * @return one < two: -1, one == two: 0, one > two: 1
      */
-    global Integer compare(Datetime one, Datetime two){
-        if(one < two)       return -1;
-        else if(one == two) return 0;
-        else                return 1;
+    global Integer compare(final Datetime one, final Datetime two) {
+        if (one < two) return -1; else if (one == two) return 0; else return 1;
     }
 
     /**
@@ -121,10 +118,8 @@ global class PrimitiveComparator implements Comparator {
      * @param twi second object
      * @return one < two: -1, one == two: 0, one > two: 1
      */
-    global Integer compare(Double one, Double two){
-        if(one < two)       return -1;
-        else if(one == two) return 0;
-        else                return 1;
+    global Integer compare(final Double one, final Double two) {
+        if (one < two) return -1; else if (one == two) return 0; else return 1;
     }
 
     /**
@@ -134,10 +129,8 @@ global class PrimitiveComparator implements Comparator {
      * @param two second object
      * @return one < two: -1, one == two: 0, one > two: 1
      */
-    global Integer compare(Integer one, Integer two){
-        if(one < two)        return -1;
-        else if(one == two)  return 0;
-        else                 return 1;
+    global Integer compare(final Integer one, final Integer two) {
+        if (one < two) return -1; else if (one == two) return 0; else return 1;
     }
 
     /**
@@ -147,10 +140,8 @@ global class PrimitiveComparator implements Comparator {
      * @param two second object
      * @return one < two: -1, one == two: 0, one > two: 1
      */
-    global Integer compare(Long one, Long two){
-        if(one < two)       return -1;
-        else if(one == two) return 0;
-        else                return 1;
+    global Integer compare(final Long one, final Long two) {
+        if (one < two) return -1; else if (one == two) return 0; else return 1;
     }
 
     /**
@@ -160,10 +151,8 @@ global class PrimitiveComparator implements Comparator {
      * @param two second object
      * @return one < two: -1, one == two: 0, one > two: 1
      */
-    global Integer compare(String one, String two){
-        if(one < two)       return -1;
-        else if(one == two) return 0;
-        else                return 1;
+    global Integer compare(final String one, final String two) {
+        if (one < two) return -1; else if (one == two) return 0; else return 1;
     }
 
     /**
@@ -173,10 +162,8 @@ global class PrimitiveComparator implements Comparator {
      * @param two second object
      * @return one < two: -1, one == two: 0, one > two: 1
      */
-    global Integer compare(Time one, Time two){
-        if(one < two)       return -1;
-        else if(one == two) return 0;
-        else                return 1;
+    global Integer compare(final Time one, final Time two) {
+        if (one < two) return -1; else if (one == two) return 0; else return 1;
     }
 
 }

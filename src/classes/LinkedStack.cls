@@ -45,7 +45,7 @@ global class LinkedStack extends AbstractStack {
      *
      * @param t The type of the stack
      */
-    global LinkedStack(Type t) {
+    global LinkedStack(final Type t) {
         super(t);
         data = new List<Object>();
     }
@@ -56,7 +56,7 @@ global class LinkedStack extends AbstractStack {
      * @param t The type of the stack
      * @param capacity The maximum size of the stack
      */
-    global LinkedStack(Type t, Integer capacity) {
+    global LinkedStack(final Type t, final Integer capacity) {
         super(t);
         this.capacity = capacity;
         data = new List<Object>();
@@ -68,9 +68,9 @@ global class LinkedStack extends AbstractStack {
      * @param o The object to be pushed
      * @return True if the item was succesfully pushed on to the stack, false if it is full.
      */
-    global override Boolean push(Object o) {
+    global override Boolean push(final Object o) {
         super.push(o);
-        if(size() == capacity) {
+        if (size() == capacity) {
             return false;
         } else {
             data.add(o);
@@ -84,7 +84,7 @@ global class LinkedStack extends AbstractStack {
      * @return The top item from the stack or null if the stack is empty.
      */
     global override Object peek() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         } else {
             return data[data.size() - 1];
@@ -97,7 +97,7 @@ global class LinkedStack extends AbstractStack {
      * @return the top item of the stack or null if it is empty.
      */
     global override Object pop() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         } else {
             return data.remove(data.size() - 1);
@@ -109,9 +109,9 @@ global class LinkedStack extends AbstractStack {
      *
      * @param o The object to be looked for.
      */
-    global override Boolean contains(Object o) {
-        for(Object obj : data) {
-            if(obj == o) {
+    global override Boolean contains(final Object o) {
+        for (Object obj : data) {
+            if (obj == o) {
                 return true;
             }
         }

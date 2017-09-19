@@ -45,7 +45,7 @@ global class SinglePivotQuickSort {
      * @param a The array
      * @param c The Comparator object
      */
-    global static void sort(Object[] a, Comparator c) {
+    global static void sort(final Object[] a, final Comparator c) {
         sort(a, c, 0, a.size() - 1);
     }
 
@@ -57,29 +57,33 @@ global class SinglePivotQuickSort {
      * @param lo0 Where to start the sort
      * @param hi0 Where to end the sort
      */
-    global static void sort(Object[] a, Comparator c, Integer lo0, Integer hi0) {
-        Integer lo = lo0;
-        Integer hi = hi0;
+    global static void sort(final Object[] a, final Comparator c, final Integer lo0, final Integer hi0) {
+        final Integer lo = lo0;
+        final Integer hi = hi0;
 
         if (lo >= hi) {
             return;
-        } else if(lo == hi - 1) {
-            if (c.compare(a[lo],a[hi]) > 0) {
-                Object t = a[lo];
+        } else if (lo == hi - 1) {
+            if (c.compare(a[lo], a[hi]) > 0) {
+                final Object t = a[lo];
                 a[lo] = a[hi];
                 a[hi] = t;
             }
             return;
         }
 
-        Object pivot = a[(lo + hi) / 2];
+        final Object pivot = a[(lo + hi) / 2];
         a[(lo + hi) / 2] = a[hi];
         a[hi] = pivot;
 
-        while(lo < hi) {
-            while(c.compare(a[lo], pivot) <= 0 && lo < hi) { lo++; }
-            while(c.compare(pivot,a[hi]) <= 0 && lo < hi) { hi--; }
-            if(lo < hi){
+        while (lo < hi) {
+            while (c.compare(a[lo], pivot) <= 0 && lo < hi) {
+                lo++;
+            }
+            while (c.compare(pivot, a[hi]) <= 0 && lo < hi) {
+                hi--;
+            }
+            if (lo < hi) {
                 Object t = a[lo];
                 a[lo] = a[hi];
                 a[hi] = t;
@@ -89,7 +93,7 @@ global class SinglePivotQuickSort {
         a[hi0] = a[hi];
         a[hi] = pivot;
 
-        sort(a, c, lo0, lo-1);
-        sort(a, c, hi+1, hi0);
+        sort(a, c, lo0, lo - 1);
+        sort(a, c, hi + 1, hi0);
     }
 }

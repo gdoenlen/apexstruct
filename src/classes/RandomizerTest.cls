@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 global class RandomizerTest {
 
     /**
@@ -42,8 +42,8 @@ global class RandomizerTest {
      * @see Randomizer.getInt
      */
     static testMethod void randomInt() {
-        for(Integer i = 0; i < 1000; i++) {
-            Integer t = Randomizer.getInt(10);
+        for (Integer i = 0; i < 1000; i++) {
+            final Integer t = Randomizer.getInt(10);
             System.assert(0 <= t);
             System.assert(t < 10);
         }
@@ -56,7 +56,7 @@ global class RandomizerTest {
      * @see Randomizer.getBool
      */
     static testMethod void randomBool() {
-        Boolean b = Randomizer.getBool();
+        final Boolean b = Randomizer.getBool();
         System.assert(b || !b);
     }
 }

@@ -58,8 +58,8 @@ global class HashCodeUtil {
      *
      * @param i an Integer
      */
-    global HashCodeUtil addHash(Integer i) {
-        hash = calculateSeed() + (Integer)i;
+    global HashCodeUtil addHash(final Integer i) {
+        hash = calculateSeed() + (Integer) i;
         return this;
     }
 
@@ -68,7 +68,7 @@ global class HashCodeUtil {
      *
      * @param b a boolean
      */
-    global HashCodeUtil addHash(Boolean b) {
+    global HashCodeUtil addHash(final Boolean b) {
         hash = calculateSeed() + (b ? 1 : 0);
         return this;
     }
@@ -78,7 +78,7 @@ global class HashCodeUtil {
      *
      * @param l a long value
      */
-    global HashCodeUtil addHash(Long l) {
+    global HashCodeUtil addHash(final Long l) {
         hash = calculateSeed() + (Integer)(l ^ l >>> 32);
         return this;
     }
@@ -93,7 +93,7 @@ global class HashCodeUtil {
      * @param d a double
      * @see Double.longValue()
      */
-    global HashCodeUtil addHash(Double d) {
+    global HashCodeUtil addHash(final Double d) {
         return addHash(d.longValue());
     }
 
@@ -107,7 +107,7 @@ global class HashCodeUtil {
      * @param d a decimal value
      * @see Decimal.longValue()
      */
-    global HashCodeUtil addHash(Decimal d) {
+    global HashCodeUtil addHash(final Decimal d) {
         return addHash(d.longValue());
     }
 
@@ -120,15 +120,15 @@ global class HashCodeUtil {
      * @param o an object
      * @see Object.hashCode
      */
-    global HashCodeUtil addHash(Object o) {
-        if(o == null) {
+    global HashCodeUtil addHash(final Object o) {
+        if (o == null) {
             addHash(0);
-        } else if(!(o instanceof List<Object>)) {
+        } else if (!(o instanceof List<Object>)) {
             addHash(o.hashCode());
         } else {
-            List<Object> that = (List<Object>)o;
-            Integer size = that.size();
-            for(Integer i = 0; i < size; i++) {
+            final List<Object> that = (List<Object>) o;
+            final Integer size = that.size();
+            for (Integer i = 0; i < size; i++) {
                 addHash(that.get(i));
             }
         }

@@ -32,20 +32,20 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 public class SinglePivotQuickSortTest {
 
     /** Asserts that the array is in order after being sorted. */
     static testMethod void test() {
-        Double[] arr = new Double[100];
-        for(Integer i = 0; i < 100; i++) {
+        final Double[] arr = new Double[100];
+        for (Integer i = 0; i < 100; i++) {
             arr[i] = Math.random();
         }
         Test.startTest();
         SinglePivotQuickSort.sort(arr, new PrimitiveComparator());
         Test.stopTest();
-        for(Integer i = 0; i < 99; i++) {
-            System.assert(arr[i] <= arr[i+1]);
+        for (Integer i = 0; i < 99; i++) {
+            System.assert(arr[i] <= arr[i + 1]);
         }
     }
 }

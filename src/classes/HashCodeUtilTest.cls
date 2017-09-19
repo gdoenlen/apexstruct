@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 global class HashCodeUtilTest {
 
     /**
@@ -42,8 +42,8 @@ global class HashCodeUtilTest {
      * @see HashCodeUtil.addHash
      */
     static testMethod void addInt() {
-        HashCodeUtil a = new HashCodeUtil();
-        HashCodeUtil b = new HashCodeUtil();
+        final HashCodeUtil a = new HashCodeUtil();
+        final HashCodeUtil b = new HashCodeUtil();
 
         System.assertEquals(a.addHash(217).getHash(), b.addhash(217).getHash());
     }
@@ -55,8 +55,8 @@ global class HashCodeUtilTest {
      * @see HashCodeUtil.addHash
      */
     static testMethod void addBoolean() {
-        HashCodeUtil a = new HashCodeUtil();
-        HashCodeUtil b = new HashCodeUtil();
+        final HashCodeUtil a = new HashCodeUtil();
+        final HashCodeUtil b = new HashCodeUtil();
 
         System.assertEquals(a.addHash(true).getHash(), b.addHash(true).getHash());
     }
@@ -68,8 +68,8 @@ global class HashCodeUtilTest {
      * @see HashCodeUtil.addHash
      */
     static testMethod void addLong() {
-        HashCodeUtil a = new HashCodeUtil();
-        HashCodeUtil b = new HashCodeUtil();
+        final HashCodeUtil a = new HashCodeUtil();
+        final HashCodeUtil b = new HashCodeUtil();
 
         System.assertEquals(a.addHash(1234567L).getHash(), b.addHash(1234567L).getHash());
     }
@@ -81,8 +81,8 @@ global class HashCodeUtilTest {
      * @see HashCodeUtil.addHash
      */
     static testMethod void addDecimal() {
-        HashCodeUtil a = new HashCodeUtil();
-        HashCodeUtil b = new HashCodeUtil();
+        final HashCodeUtil a = new HashCodeUtil();
+        final HashCodeUtil b = new HashCodeUtil();
 
         System.assertEquals(a.addHash(2.0).getHash(), b.addHash(2.0).getHash());
     }
@@ -94,10 +94,10 @@ global class HashCodeUtilTest {
      * @see HashCodeUtil.addHash
      */
     static testMethod void addDouble() {
-        HashCodeUtil a = new HashCodeUtil();
-        HashCodeUtil b = new HashCodeUtil();
+        final HashCodeUtil a = new HashCodeUtil();
+        final HashCodeUtil b = new HashCodeUtil();
 
-        Double d = 2.0;
+        final Double d = 2.0;
 
         System.assertEquals(a.addHash(d).getHash(), b.addHash(d).getHash());
     }
@@ -119,15 +119,15 @@ global class HashCodeUtilTest {
 
         a = new HashCodeUtil();
         b = new HashCodeUtil();
-        Integer i = 'test'.hashCode();
+        final Integer i = 'test'.hashCode();
         System.assertEquals(a.addHash('test').getHash(), b.addHash(i).getHash());
 
         a = new HashCodeUtil();
         b = new HashCodeUtil();
-        List<String> lst = new List<String>();
-        List<Integer> sum = new List<Integer>();
-        for(Integer j = 0; j < 100; j++) {
-            String t = 'Test ' + j;
+        final List<String> lst = new List<String>();
+        final List<Integer> sum = new List<Integer>();
+        for (Integer j = 0; j < 100; j++) {
+            final String t = 'Test ' + j;
             lst.add(t);
             sum.add(t.hashCode());
         }

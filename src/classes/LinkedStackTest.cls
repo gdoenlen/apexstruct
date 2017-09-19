@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 global class LinkedStackTest {
 
     /**
@@ -58,7 +58,7 @@ global class LinkedStackTest {
      * @see LinkedStack.pop
      */
     static testMethod void pop() {
-        Stack s = new LinkedStack(Account.class);
+        final Stack s = new LinkedStack(Account.class);
         Account a;
         for(Integer i = 0; i < 10; i++) {
             a = new Account();
@@ -82,7 +82,7 @@ global class LinkedStackTest {
      * @see LinkedStack.peek
      */
     static testMethod void peek() {
-        Stack s = new LinkedStack(Decimal.class);
+        final Stack s = new LinkedStack(Decimal.class);
         for(Integer i = 0; i < 10; i++) {
             s.push(2.9);
         }
@@ -99,8 +99,8 @@ global class LinkedStackTest {
      * @see LinkedStack.contains
      */
     static testMethod void contains() {
-        Stack s = new LinkedStack(Datetime.class);
-        DateTime t = DateTime.now();
+        final Stack s = new LinkedStack(Datetime.class);
+        final DateTime t = DateTime.now();
         for(Integer i = 0; i < 10; i++) {
             s.push(DateTime.now());
         }
@@ -116,12 +116,12 @@ global class LinkedStackTest {
      * @see LinkedStackIterator
      */
     static testMethod void it() {
-        Stack s = new LinkedStack(Integer.class);
+        final Stack s = new LinkedStack(Integer.class);
         for(Integer i = 0; i < 100; i++) {
             s.push(i);
         }
         Integer count = 0;
-        Iterator<Object> it = s.iterator();
+        final Iterator<Object> it = s.iterator();
         while(it.hasNext()) {
             Integer i = (Integer)it.next();
             count++;
@@ -138,8 +138,8 @@ global class LinkedStackTest {
      * @see AbstractStack.remove
      */
     static testMethod void remove() {
-        Stack s = new LinkedStack(Date.class);
-        Date d = Date.today();
+        final Stack s = new LinkedStack(Date.class);
+        final Date d = Date.today();
         s.push(d);
         try {
             s.remove(d);
@@ -158,7 +158,7 @@ global class LinkedStackTest {
      * @see IllegalArgumentException
      */
     static testMethod void validateType() {
-        Stack s = new LinkedStack(Integer.class);
+        final Stack s = new LinkedStack(Integer.class);
         try {
             s.push('String');
         } catch(IllegalArgumentException ex) {
@@ -179,8 +179,8 @@ global class LinkedStackTest {
      * @see AbstractCollection.addAll
      */
     static testMethod void addAll() {
-        Stack s = new LinkedStack(Integer.class);
-        Stack b = new LinkedStack(Integer.class);
+        final Stack s = new LinkedStack(Integer.class);
+        final Stack b = new LinkedStack(Integer.class);
 
         for(Integer i = 0; i < 100; i++) {
             b.push(i);
@@ -194,8 +194,8 @@ global class LinkedStackTest {
      * Asserts: containsAll returns false when an item in b is not present in s
      */
     static testMethod void containsAll() {
-        Stack s = new LinkedStack(Integer.class);
-        Stack b = new LinkedStack(Integer.class);
+        final Stack s = new LinkedStack(Integer.class);
+        final Stack b = new LinkedStack(Integer.class);
 
         for(Integer i = 0; i < 100; i++) {
             s.push(i);

@@ -49,7 +49,7 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @see Comparator
      * @see Type
      */
-    global RedBlackTree(Comparator comp, Type t) {
+    global RedBlackTree(final Comparator comp, final Type t) {
         super(comp, t);
     }
 
@@ -62,7 +62,7 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @see Comparator
      * @see Type
      */
-    private RedBlackTree(Comparator comp, RedBlackTree.RedBlackNode root, Type t) {
+    private RedBlackTree(final Comparator comp, final RedBlackTree.RedBlackNode root, final Type t) {
         super(comp, root, t);
     }
 
@@ -72,7 +72,7 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @return a RedBlackTree constructed from this tree's root.left
      */
     global override BinaryTree getLeftSubtree() {
-        return new RedBlackTree(this.comp, (RedBlackTree.RedBlackNode)this.root, this.t);
+        return new RedBlackTree(this.comp, (RedBlackTree.RedBlackNode) this.root, this.t);
     }
 
     /**
@@ -81,7 +81,7 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @return a RedBlackTree constructred form this tree's root.right
      */
     global override BinaryTree getRightSubtree() {
-        return new RedBlackTree(this.comp, (RedBlackTree.RedBlackNode)this.root, this.t);
+        return new RedBlackTree(this.comp, (RedBlackTree.RedBlackNode) this.root, this.t);
     }
 
     /**
@@ -90,11 +90,11 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @param o The object to be added to the tree.
      * @return true if the item was successfully added to the tree
      */
-    global override Boolean add(Object o) {
+    global override Boolean add(final Object o) {
         super.add(o);
 
-        RedBlackTree.RedBlackNode localRoot = (RedBlackTree.RedBlackNode)root;
-        if(localRoot == null) {
+        RedBlackTree.RedBlackNode localRoot = (RedBlackTree.RedBlackNode) root;
+        if (localRoot == null) {
             root = new RedBlackTree.RedBlackNode(o, null);
             size = 1;
             return true;
@@ -105,17 +105,17 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
                 //navigates to the appropriate localroot node
                 parent = localRoot;
                 result = comp.compare(o, localRoot.data);
-                if(result < 0) {
-                    localRoot = (RedBlackTree.RedBlackNode)localRoot.left;
-                } else if(result > 0) {
-                    localRoot = (RedBlackTree.RedBlackNode)localRoot.right;
+                if (result < 0) {
+                    localRoot = (RedBlackTree.RedBlackNode) localRoot.left;
+                } else if (result > 0) {
+                    localRoot = (RedBlackTree.RedBlackNode) localRoot.right;
                 } else {
                     //object is already in the tree
                     return false;
                 }
-            } while(localRoot != null);
-            RedBlackTree.RedBlackNode entry = new RedBlackTree.RedBlackNode(o, parent);
-            if(result < 0) {
+            } while (localRoot != null);
+            final RedBlackTree.RedBlackNode entry = new RedBlackTree.RedBlackNode(o, parent);
+            if (result < 0) {
                 parent.left = entry;
             } else {
                 parent.right = entry;
@@ -132,26 +132,26 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      */
 
     //todo I think these are adding a lot of cpu time overhead we might need to remove these
-    private static Boolean colorOf(RedBlackTree.RedBlackNode localRoot) {
+    private static Boolean colorOf(final RedBlackTree.RedBlackNode localRoot) {
         return localRoot == null ? BLACK : localRoot.color;
     }
 
-    private static RedBlackTree.RedBlackNode parentOf(RedBlackTree.RedBlackNode localRoot) {
+    private static RedBlackTree.RedBlackNode parentOf(final RedBlackTree.RedBlackNode localRoot) {
         return localRoot == null ? null : localRoot.parent;
     }
 
-    private static void setColor(RedBlackTree.RedBlackNode localRoot, Boolean color) {
-        if(localRoot != null) {
+    private static void setColor(final RedBlackTree.RedBlackNode localRoot, final Boolean color) {
+        if (localRoot != null) {
             localRoot.color = color;
         }
     }
 
-    private static RedBlackTree.RedBlackNode leftOf(RedBlackTree.RedBlackNode localRoot) {
-        return localRoot == null ? null : (RedBlackTree.RedBlackNode)localRoot.left;
+    private static RedBlackTree.RedBlackNode leftOf(final RedBlackTree.RedBlackNode localRoot) {
+        return localRoot == null ? null : (RedBlackTree.RedBlackNode) localRoot.left;
     }
 
-    private static RedBlackTree.RedBlackNode rightOf(RedBlackTree.RedBlackNode localRoot) {
-        return localRoot == null ? null : (RedBlackTree.RedBlackNode)localRoot.right;
+    private static RedBlackTree.RedBlackNode rightOf(final RedBlackTree.RedBlackNode localRoot) {
+        return localRoot == null ? null : (RedBlackTree.RedBlackNode) localRoot.right;
     }
 
     /**
@@ -161,16 +161,16 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      */
     private void fixAfterInsertion(RedBlackTree.RedBlackNode localRoot) {
         localRoot.color = RED;
-        while(localRoot != null && localRoot != root && localRoot.parent.color == RED) {
-            if(parentOf(localRoot) == leftOf(parentOf(parentOf(localRoot)))) {
+        while (localRoot != null && localRoot != root && localRoot.parent.color == RED) {
+            if (parentOf(localRoot) == leftOf(parentOf(parentOf(localRoot)))) {
                 RedBlackTree.RedBlackNode y = rightOf(parentOf(parentOf(localRoot)));
-                if(colorOf(y) == RED) {
+                if (colorOf(y) == RED) {
                     setColor(parentOf(localRoot), BLACK);
                     setColor(y, BLACK);
                     setColor(parentOf(parentOf(localRoot)), RED);
                     localRoot = parentOf(parentOf(localRoot));
                 } else {
-                    if(localRoot == rightOf(parentOf(localRoot))) {
+                    if (localRoot == rightOf(parentOf(localRoot))) {
                         localRoot = parentOf(localRoot);
                         rotateLeft(localRoot);
                     }
@@ -179,14 +179,14 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
                     rotateRight(parentOf(parentOf(localRoot)));
                 }
             } else {
-                RedBlackTree.RedBlackNode y = leftOf(parentOf(parentOf(localRoot)));
-                if(colorOf(y) == RED) {
+                final RedBlackTree.RedBlackNode y = leftOf(parentOf(parentOf(localRoot)));
+                if (colorOf(y) == RED) {
                     setColor(parentOf(localRoot), BLACK);
                     setColor(y, BLACK);
                     setColor(parentOf(parentOf(localRoot)), RED);
                     localRoot = parentOf(parentOf(localRoot));
                 } else {
-                    if(localRoot == leftOf(parentOf(localRoot))) {
+                    if (localRoot == leftOf(parentOf(localRoot))) {
                         localRoot = parentOf(localRoot);
                         rotateRight(localRoot);
                     }
@@ -196,7 +196,7 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
                 }
             }
         }
-        ((RedBlackTree.RedBlackNode)root).color = BLACK;
+        ((RedBlackTree.RedBlackNode) root).color = BLACK;
     }
 
     /**
@@ -206,12 +206,12 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @param o the data you are looking for
      * @return data from the node you are looking for, equal to o
      */
-    global override Object del(Object o) {
-        RedBlackTree.RedBlackNode temp = (RedBlackTree.RedBlackNode)getNode(root, o);
-        if(temp == null) {
+    global override Object del(final Object o) {
+        final RedBlackTree.RedBlackNode temp = (RedBlackTree.RedBlackNode) getNode(root, o);
+        if (temp == null) {
             return null;
         }
-        Object val = temp.data;
+        final Object val = temp.data;
         deleteNode(temp);
         return val;
     }
@@ -223,43 +223,43 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      */
     private void deleteNode(RedBlackTree.RedBlackNode localRoot) {
         size--;
-        if(localRoot.left != null && localRoot.right != null) {
-            RedBlackTree.RedBlackNode temp = (RedBlackTree.RedBlackNode)successor(localRoot);
+        if (localRoot.left != null && localRoot.right != null) {
+            final RedBlackTree.RedBlackNode temp = (RedBlackTree.RedBlackNode) successor(localRoot);
             localRoot.data = temp.data;
             localRoot = temp;
         }
 
         RedBlackTree.RedBlackNode replacement;
-        if(localRoot.left != null) {
-            replacement = (RedBlackTree.RedBlackNode)localRoot.left;
+        if (localRoot.left != null) {
+            replacement = (RedBlackTree.RedBlackNode) localRoot.left;
         } else {
-            replacement = (RedBlackTree.RedBlackNode)localRoot.right;
+            replacement = (RedBlackTree.RedBlackNode) localRoot.right;
         }
 
-        if(replacement != null) {
+        if (replacement != null) {
             replacement.parent = localRoot.parent;
-            if(localRoot.parent == null) {
+            if (localRoot.parent == null) {
                 root = replacement;
-            } else if(localRoot == localRoot.parent.left) {
+            } else if (localRoot == localRoot.parent.left) {
                 localRoot.parent.left = replacement;
             } else {
                 localRoot.parent.right = replacement;
             }
 
             localRoot.left = localRoot.right = localRoot.parent = null;
-            if(localRoot.color == BLACK) {
+            if (localRoot.color == BLACK) {
                 fixAfterDeletion(localRoot);
             }
-        } else if(localRoot.parent == null) {
+        } else if (localRoot.parent == null) {
             root = null;
         } else {
-            if(localRoot.color == BLACK) {
+            if (localRoot.color == BLACK) {
                 fixAfterDeletion(localRoot);
             }
-            if(localRoot.parent != null) {
-                if(localRoot == localRoot.parent.left) {
+            if (localRoot.parent != null) {
+                if (localRoot == localRoot.parent.left) {
                     localRoot.parent.left = null;
-                } else if(localRoot == localRoot.parent.right) {
+                } else if (localRoot == localRoot.parent.right) {
                     localRoot.parent.right = null;
                 }
                 localRoot.parent = null;
@@ -273,22 +273,22 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @param localRoot the node you are removing from the tree
      */
     private void fixAfterDeletion(RedBlackTree.RedBlackNode localRoot) {
-        while(localRoot != root && colorOf(localRoot) == BLACK) {
-            if(localRoot == leftOf(parentOf(localRoot))) {
+        while (localRoot != root && colorOf(localRoot) == BLACK) {
+            if (localRoot == leftOf(parentOf(localRoot))) {
                 RedBlackTree.RedBlackNode sibling = rightOf(parentOf(localRoot));
 
-                if(colorOf(sibling) == RED) {
+                if (colorOf(sibling) == RED) {
                     setColor(sibling, BLACK);
                     setColor(parentOf(localRoot), RED);
                     rotateLeft(parentOf(localRoot));
                     sibling = rightOf(parentOf(localRoot));
                 }
 
-                if(colorOf(leftOf(sibling)) == BLACK && colorOf(rightOf(sibling)) == BLACK) {
+                if (colorOf(leftOf(sibling)) == BLACK && colorOf(rightOf(sibling)) == BLACK) {
                     setColor(sibling, RED);
                     localRoot = parentOf(localRoot);
                 } else {
-                    if(colorOf(rightOf(sibling)) == BLACK) {
+                    if (colorOf(rightOf(sibling)) == BLACK) {
                         setColor(leftOf(sibling), BLACK);
                         setColor(sibling, RED);
                         rotateRight(sibling);
@@ -298,23 +298,23 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
                     setColor(parentOf(localRoot), BLACK);
                     setColor(rightOf(sibling), BLACK);
                     rotateLeft(parentOf(localRoot));
-                    localRoot = (RedBlackTree.RedBlackNode)root;
+                    localRoot = (RedBlackTree.RedBlackNode) root;
                 }
             } else {
                 RedBlackTree.RedBlackNode sibling = leftOf(parentOf(localRoot));
 
-                if(colorOf(sibling) == RED) {
+                if (colorOf(sibling) == RED) {
                     setColor(sibling, BLACK);
                     setColor(parentOf(localRoot), RED);
                     rotateRight(parentOf(localRoot));
                     sibling = leftOf(parentOf(localRoot));
                 }
 
-                if(colorOf(rightOf(sibling)) == BLACK && colorOf(leftOf(sibling)) == BLACK) {
+                if (colorOf(rightOf(sibling)) == BLACK && colorOf(leftOf(sibling)) == BLACK) {
                     setColor(sibling, RED);
                     localRoot = parentOf(localRoot);
                 } else {
-                    if(colorOf(leftOf(sibling)) == BLACK) {
+                    if (colorOf(leftOf(sibling)) == BLACK) {
                         setColor(rightOf(sibling), BLACK);
                         setColor(sibling, RED);
                         rotateLeft(sibling);
@@ -324,7 +324,7 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
                     setColor(parentOf(localRoot), BLACK);
                     setColor(leftOf(sibling), BLACK);
                     rotateRight(parentOf(localRoot));
-                    localRoot = (RedBlackTree.RedBlackNode)root;
+                    localRoot = (RedBlackTree.RedBlackNode) root;
                 }
             }
         }
@@ -337,19 +337,19 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @param localRoot the node you want to rotate around
      * @return The node that takes the localRoot's place
      */
-    protected override BinaryTree.Node rotateLeft(BinaryTree.Node localRoot) {
-        if(localRoot != null) {
-            RedBlackTree.RedBlackNode lr = (RedBlackTree.RedBlackNode)localRoot;
-            RedBlackTree.RedBlackNode rc = (RedBlackTree.RedBlackNode)lr.right;
+    protected override BinaryTree.Node rotateLeft(final BinaryTree.Node localRoot) {
+        if (localRoot != null) {
+            final RedBlackTree.RedBlackNode lr = (RedBlackTree.RedBlackNode) localRoot;
+            final RedBlackTree.RedBlackNode rc = (RedBlackTree.RedBlackNode) lr.right;
             lr.right = rc.left;
-            if(rc.left != null) {
-                RedBlackTree.RedBlackNode rlc = (RedBlackTree.RedBlackNode)rc.left;
+            if (rc.left != null) {
+                final RedBlackTree.RedBlackNode rlc = (RedBlackTree.RedBlackNode) rc.left;
                 rlc.parent = lr;
             }
             rc.parent = lr.parent;
-            if(lr.parent == null) {
+            if (lr.parent == null) {
                 root = rc;
-            } else if(lr == lr.parent.left) {
+            } else if (lr == lr.parent.left) {
                 lr.parent.left = rc;
             } else {
                 lr.parent.right = rc;
@@ -367,19 +367,19 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      * @param localRoot the node you want to rotate around
      * @return the node that takes the localRoot's place
      */
-    protected override BinaryTree.Node rotateRight(BinaryTree.Node localRoot) {
-        if(localRoot != null) {
-            RedBlackTree.RedBlackNode lr = (RedBlackTree.RedBlackNode)localRoot;
-            RedBlackTree.RedBlackNode lc = (RedBlackTree.RedBlackNode)lr.left;
+    protected override BinaryTree.Node rotateRight(final BinaryTree.Node localRoot) {
+        if (localRoot != null) {
+            final RedBlackTree.RedBlackNode lr = (RedBlackTree.RedBlackNode) localRoot;
+            final RedBlackTree.RedBlackNode lc = (RedBlackTree.RedBlackNode) lr.left;
             lr.left = lc.right;
-            if(lc.right != null) {
-                RedBlackTree.RedBlackNode lrc = (RedBlackTree.RedBlackNode)lc.right;
+            if (lc.right != null) {
+                final RedBlackTree.RedBlackNode lrc = (RedBlackTree.RedBlackNode) lc.right;
                 lrc.parent = lr;
             }
             lc.parent = lr.parent;
-            if(lr.parent == null) {
+            if (lr.parent == null) {
                 root = lc;
-            } else if(lr == lr.parent.right) {
+            } else if (lr == lr.parent.right) {
                 lr.parent.right = lc;
             } else {
                 lr.parent.left = lc;
@@ -396,19 +396,19 @@ global class RedBlackTree extends BinarySearchTreeWithRotate {
      *
      * @return the new node
      */
-    protected override BinaryTree.Node successor(BinaryTree.Node localRoot) {
-        if(localRoot == null) {
+    protected override BinaryTree.Node successor(final BinaryTree.Node localRoot) {
+        if (localRoot == null) {
             return null;
-        } else if(localRoot.right != null) {
+        } else if (localRoot.right != null) {
             BinaryTree.Node p = localRoot.right;
-            while(p.left != null) {
+            while (p.left != null) {
                 p = p.left;
             }
             return p;
         } else {
-            RedBlackTree.RedBlackNode p = ((RedBlackTree.RedBlackNode)localRoot).parent;
-            RedBlackTree.RedBlackNode ch = (RedBlackTree.RedBlackNode)localRoot;
-            while(p != null && ch == p.right) {
+            RedBlackTree.RedBlackNode p = ((RedBlackTree.RedBlackNode) localRoot).parent;
+            RedBlackTree.RedBlackNode ch = (RedBlackTree.RedBlackNode) localRoot;
+            while (p != null && ch == p.right) {
                 ch = p;
                 p = p.parent;
             }

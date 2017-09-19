@@ -42,7 +42,7 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
     protected Object deleteReturn;
 
     /** The comparator this tree uses to compare it's objects */
-    protected Comparator comp;
+    protected final Comparator comp;
 
     /**
      * Constructor. Sets the type of the tree and the comparator to compare objects
@@ -51,7 +51,7 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @param t the type of objects stored in the tree
      * @see Comparator
      */
-    global BinarySearchTree(Comparator comp, Type t) {
+    global BinarySearchTree(final Comparator comp, final Type t) {
         super(t);
         this.comp = comp;
     }
@@ -63,7 +63,7 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @param root the new root node for the tree
      * @param t the type of the objects stored, passed from the current tree
      */
-    protected BinarySearchTree(Comparator comp, BinaryTree.Node root, Type t) {
+    protected BinarySearchTree(final Comparator comp, final BinaryTree.Node root, final Type t) {
         super(root, t);
         this.comp = comp;
     }
@@ -77,7 +77,9 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @param right the right subtree
      * @param t the type of objects stored
      */
-    global BinarySearchTree(Comparator comp, Object data, BinarySearchTree left, BinarySearchTree right, Type t) {
+    global BinarySearchTree(final Comparator comp, final Object data, final BinarySearchTree left,
+                            final BinarySearchTree right, final Type t)
+    {
         super(data, left, right, t);
         this.comp = comp;
     }
@@ -89,7 +91,7 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @param o the object to find
      * @return true if the object is in the tree
      */
-    global override Boolean contains(Object o) {
+    global override Boolean contains(final Object o) {
         return find(o) == null ? false : true;
     }
 
@@ -99,8 +101,8 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @param target the object you're looking for
      * @return reference to the found object or null if it's not found
      */
-    global Object find(Object target) {
-        BinaryTree.Node localRoot = getNode(root, target);
+    global Object find(final Object target) {
+        final BinaryTree.Node localRoot = getNode(root, target);
         return localRoot != null ? localRoot.data : null;
     }
 
@@ -112,15 +114,15 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @param target the target data you are looking for
      * @return the node that contains the target data or null if it's not found
      */
-    protected BinaryTree.Node getNode(BinaryTree.Node localRoot, Object target) {
-        if(localRoot == null) {
+    protected BinaryTree.Node getNode(final BinaryTree.Node localRoot, final Object target) {
+        if (localRoot == null) {
             return null;
         }
 
-        Integer result = comp.compare(target, localRoot.data);
-        if(result == 0) {
+        final Integer result = comp.compare(target, localRoot.data);
+        if (result == 0) {
             return localRoot;
-        } else if(result < 0) {
+        } else if (result < 0) {
             return getNode(localRoot.left, target);
         } else {
             return getNode(LocalRoot.right, target);
@@ -134,8 +136,8 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @return true if it was successfully removed, false otherwise
      * @see BinarySearchTree.del
      */
-    global override Boolean remove(Object o) {
-        if(del(o) != null) {
+    global override Boolean remove(final Object o) {
+        if (del(o) != null) {
             return true;
         } else {
             return false;
@@ -148,7 +150,7 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @param o The object to delete from the tree
      * @return the reference to the object in the tree.
      */
-    global virtual Object del(Object o) {
+    global virtual Object del(final Object o) {
         root = del(root, o);
         return deleteReturn;
     }
@@ -160,28 +162,28 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      * @param o the object to remove
      * @return the node that will replace the removed one
      */
-    protected virtual BinaryTree.Node del(BinaryTree.Node localRoot, Object o) {
-        if(localRoot == null) {
+    protected virtual BinaryTree.Node del(final BinaryTree.Node localRoot, final Object o) {
+        if (localRoot == null) {
             deleteReturn = null;
             return localRoot;
         }
-        Integer result = comp.compare(o, localRoot.data);
-        if(result < 0) {
+        final Integer result = comp.compare(o, localRoot.data);
+        if (result < 0) {
             localRoot.left = del(localRoot.left, o);
             return localRoot;
-        } else if(result > 0) {
+        } else if (result > 0) {
             localRoot.right = del(localRoot.right, o);
             return localRoot;
         } else {
             deleteReturn = localRoot.data;
-            if(localRoot.left == null) {
+            if (localRoot.left == null) {
                 return localRoot.right;
-            } else if(localRoot.right == null) {
+            } else if (localRoot.right == null) {
                 return localRoot.left;
             } else {
                 //the node being deleted has 2 chilren
                 //replace it with it's inorder predecessor
-                if(localRoot.left.right == null) {
+                if (localRoot.left.right == null) {
                     // The left child has no right child.
                     // Replace the data with the data in the
                     // left child.
@@ -202,9 +204,9 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      *
      * @param localRoot the node to start from.
      */
-    protected virtual BinaryTree.Node predecessor(BinaryTree.Node localRoot) {
-        if(localRoot.right.right == null) {
-            BinaryTree.Node ret = localRoot.right;
+    protected virtual BinaryTree.Node predecessor(final BinaryTree.Node localRoot) {
+        if (localRoot.right.right == null) {
+            final BinaryTree.Node ret = localRoot.right;
             localRoot.right = localRoot.right.left;
             return ret;
         } else {
@@ -217,9 +219,9 @@ global abstract class BinarySearchTree extends BinaryTree implements SearchTree 
      *
      * @param localRoot the node to start from.
      */
-    protected virtual BinaryTree.Node successor(BinaryTree.Node localRoot) {
-        if(localRoot.left.left == null) {
-            BinaryTree.Node ret = localRoot.left;
+    protected virtual BinaryTree.Node successor(final BinaryTree.Node localRoot) {
+        if (localRoot.left.left == null) {
+            final BinaryTree.Node ret = localRoot.left;
             localRoot.left = localRoot.left.right;
             return ret;
         } else {

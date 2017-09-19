@@ -32,7 +32,7 @@
  *  </tr>
  * </table>
  */
-@isTest
+@IsTest
 global class DoubleUtilsTest {
 
     /**

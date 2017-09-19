@@ -44,7 +44,9 @@ private class BinarySearchTest {
      * @see BinarySearch.search
      */
     static testMethod void objectSearch() {
-        Integer[] a = new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        final Integer[] a = new Integer[] {
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        };
         Integer t = BinarySearch.find(a, a[3], new PrimitiveComparator());
         System.assertEquals(3, t);
         t = BinarySearch.find(a, 12, new PrimitiveComparator());
@@ -60,8 +62,8 @@ private class BinarySearchTest {
      * @see BinarySearch.search
      */
     static testMethod void sObjectSearch() {
-        List<Account> a = new List<Account>();
-        for(Integer i = 0; i < 10; i++) {
+        final List<Account> a = new List<Account>();
+        for (Integer i = 0; i < 10; i++) {
             a.add(new Account(Name = 'Test' + i));
         }
         Integer t = BinarySearch.find(a, a[3], new SObjectByFieldComparator('Name'));

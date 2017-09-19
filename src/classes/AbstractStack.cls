@@ -39,7 +39,7 @@ global abstract class AbstractStack extends AbstractCollection implements Stack 
      *
      * @param t The type of object this collection will hold.
      */
-    protected AbstractStack(Type t) {
+    protected AbstractStack(final Type t) {
         super(t);
     }
 
@@ -49,7 +49,7 @@ global abstract class AbstractStack extends AbstractCollection implements Stack 
      * @param o The object to push
      * @return true if the operation succeeds
      */
-    global virtual Boolean push(Object o) {
+    global virtual Boolean push(final Object o) {
         super.add(o);
         return true;
     }
@@ -75,7 +75,7 @@ global abstract class AbstractStack extends AbstractCollection implements Stack 
      * @return false
      * @throws UnsupportedOperationException
      */
-    global override Boolean remove(Object o) {
+    global override Boolean remove(final Object o) {
         throw new UnsupportedOperationException();
         return false;
     }

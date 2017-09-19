@@ -48,7 +48,7 @@ global class BinarySearch {
      * @return The location of the target in the array. Returns -1 if it is not present.
      * @see Comparator
      */
-    global static Integer find(Object[] a, Object t, Comparator c) {
+    global static Integer find(final Object[] a, final Object t, final Comparator c) {
         return find(a, t, c, 0, a.size() - 1);
     }
 
@@ -63,19 +63,18 @@ global class BinarySearch {
      * @return The location of the target in the array. Returns -1 if it is not present.
      * @see Comparator
      */
-    global static Integer find(Object[] a, Object t, Comparator c, Integer low, Integer high) {
-        if(high < low) {
+    global static Integer find(final Object[] a, final Object t, final Comparator c, final Integer low,
+                               final Integer high)
+    {
+        if (high < low) {
             return -1;
-        }
-        else {
-            Integer mid = low + ((high - low) / 2);
-            if(c.compare(a[mid], t) >= 1) {
+        } else {
+            final Integer mid = low + ((high - low) / 2);
+            if (c.compare(a[mid], t) >= 1) {
                 return find(a, t, c, low, mid - 1);
-            }
-            else if(c.compare(a[mid], t) <= -1) {
+            } else if (c.compare(a[mid], t) <= -1) {
                 return find(a, t, c, mid + 1, high);
-            }
-            else {
+            } else {
                 return mid;
             }
         }

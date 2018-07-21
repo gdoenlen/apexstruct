@@ -42,13 +42,13 @@ private class SObjectByFieldComparatorTest {
      */
     static testMethod void compareException() {
         try {
-            final SObjectByFieldComparator c = new SObjectByFieldComparator('');
+            final SObjectByFieldComparator c = new SObjectByFieldComparator('', null);
         } catch (Exception e) {
             System.assert(e instanceof IllegalArgumentException);
         }
 
         try {
-            final SObjectByFieldComparator c = new SObjectByFieldComparator('  ');
+            final SObjectByFieldComparator c = new SObjectByFieldComparator('  ', null);
         } catch (Exception e) {
             System.assert(e instanceof IllegalArgumentException);
         }
@@ -67,7 +67,7 @@ private class SObjectByFieldComparatorTest {
      * @see SObjectByFieldComparator
      */
     static testMethod void compareNulls() {
-        final SObjectByFieldComparator c = new SObjectByFieldComparator('Name');
+        final SObjectByFieldComparator c = new SObjectByFieldComparator('Name', new PrimitiveComparator());
         SObject one;
         SObject two;
         final Account a = new Account(Name = 'a');
@@ -82,7 +82,7 @@ private class SObjectByFieldComparatorTest {
      * @see SObjectByFieldComparator
      */
     static testMethod void compare() {
-        final SObjectByFieldComparator c = new SObjectByFieldComparator('Name');
+        final SObjectByFieldComparator c = new SObjectByFieldComparator('Name', new PrimitiveComparator());
         final Account a = new Account(Name = 'a');
         final Account b = new Account(Name = 'b');
         System.assert(c.compare(a, b) == -1);

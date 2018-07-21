@@ -35,12 +35,8 @@
  */
 global class SObjectByFieldComparator implements Comparator {
 
-    /**
-     * PrimitiveComparator used to compare the fields.
-     *
-     * @see PrimitiveComparator
-     */
-    private final Comparator c = new PrimitiveComparator();
+    /** Comparator used to compare the fields. */
+    private final Comparator c;
 
     /** The field to compare by. */
     private final String field;
@@ -51,11 +47,13 @@ global class SObjectByFieldComparator implements Comparator {
      * @param field The field you want to compare by.
      * @throws IllegalArgumentException
      */
-    global SObjectByFieldComparator(final String field) {
+    global SObjectByFieldComparator(final String field, final Comparator c) {
         if (String.isBlank(field)) {
             throw new IllegalArgumentException('Field cannot be blank or null');
         }
+        System.assert(c != null);
         this.field = field;
+        this.c = c;
     }
 
     /**

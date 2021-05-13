@@ -33,6 +33,12 @@
  *      <td>Original Version</td>
  *      <td>1.0.0</td>
  *  </tr>
+ *  <tr>
+ *     <td>George Doenlen</td>
+ *     <td>13 MAY 2021</td>
+ *     <td>Use system hash codes instead of calculating ourselves</td>
+ *     <td>1.0.1</td>
+ *  </tr>
  * </table>
  */
 global class HashCodeUtil {
@@ -54,95 +60,20 @@ global class HashCodeUtil {
     }
 
     /**
-     * Adds the hash of the integer to the current hash
-     *
-     * @param i an Integer
-     */
-    global HashCodeUtil addHash(final Integer i) {
-        hash = calculateSeed() + (Integer) i;
-        return this;
-    }
-
-    /**
-     * Calculates the hash of a boolean by using b ? 1 : 0
-     *
-     * @param b a boolean
-     */
-    global HashCodeUtil addHash(final Boolean b) {
-        hash = calculateSeed() + (b ? 1 : 0);
-        return this;
-    }
-
-    /**
-     * Calculates the hash of a long via shifting (l ^ l >>> 32)
-     *
-     * @param l a long value
-     */
-    global HashCodeUtil addHash(final Long l) {
-        hash = calculateSeed() + (Integer)(l ^ l >>> 32);
-        return this;
-    }
-
-    /**
-     * Calculates the hash of a double. Uses double.longValue() and recursively calls itself.
-     * Dev note: Effective java's implementation recommends using double.doubleToLongBits
-     * we can't do this in apex. We can't even write it ourselves as that method is "native" in java.
-     *
-     * This could possibly result in collisions due to the loss of precision from double -> long
-     *
-     * @param d a double
-     * @see Double.longValue()
-     */
-    global HashCodeUtil addHash(final Double d) {
-        return addHash(d.longValue());
-    }
-
-    /**
-     * Calculates the hash of a decimal. Uses Decimal.longValue() and recursively calls itself
-     * Dev note: Effective java's implementation recommends using double.doubleToLongBits
-     * we can't do this in apex. We can't even write it ourselves as that method is "native" in java.
-     *
-     * This could possibly result in collisions due to the loss of precision from double -> long
-     *
-     * @param d a decimal value
-     * @see Decimal.longValue()
-     */
-    global HashCodeUtil addHash(final Decimal d) {
-        return addHash(d.longValue());
-    }
-
-    /**
-     * Calculates the hash of an object.
-     * If the object == null it will calculate the hash of the integer 0.
-     * If the object is NOT a list/array it will calculate with the resulting hashCode().
-     * If the object is a list/array it will calculate the hash for each item in the list
+     * Adds the hash of the given object to the calculation. 
      *
      * @param o an object
      * @see Object.hashCode
      */
-    global HashCodeUtil addHash(final Object o) {
-        if (o == null) {
-            addHash(0);
-        } else if (!(o instanceof List<Object>)) {
-            addHash(o.hashCode());
-        } else {
-            final List<Object> that = (List<Object>) o;
-            final Integer size = that.size();
-            for (Integer i = 0; i < size; i++) {
-                addHash(that.get(i));
-            }
-        }
+    global HashCodeUtil addHash(Object o) {
+        this.add(o == null ? 0 : o.hashCode());
+        
         return this;
     }
-
-    /**
-     * Calculates the seed of the hash before adding the new hash. hash * PRIME
-     *
-     * @return hash * PRIME
-     */
-    private Integer calculateSeed() {
-         return hash * PRIME;
-    }
+   
+    private void add(Integer i) {
+        this.hash = (this.hash * PRIME) + i;  
+    } 
 
     /**
      * Returns the current hash
@@ -150,6 +81,6 @@ global class HashCodeUtil {
      * @return hash
      */
     global Integer getHash() {
-        return hash;
+        return this.hash;
     }
 }
